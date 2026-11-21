@@ -50,6 +50,26 @@
   width: 100%;
 }
 
+.capsule-stage[data-replay] .capsule-form {
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0;
+}
+
+.capsule-stage[data-replay] .vending-controls {
+  display: contents;
+}
+
+.capsule-stage[data-replay] .vending-trigger {
+  display: none;
+}
+
+.capsule-stage[data-replay][data-phase="error"] .vending-status {
+  position: static;
+  width: auto;
+  height: auto;
+  clip-path: none;
+}
+
 .vending-status {
   position: absolute;
   width: 1px;
@@ -76,7 +96,7 @@
   visibility: hidden;
 }
 
-.capsule-stage[data-reveal] .vending-trigger {
+.capsule-stage:is([data-reveal], [data-phase="loading"]) .vending-trigger {
   visibility: hidden;
 }
 

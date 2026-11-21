@@ -1,4 +1,4 @@
-import { drawOutcome, saveOutcome } from './outcomes.js';
+import { drawOutcome, saveOutcome } from './outcomes.js?v=2';
 
 const stage = document.querySelector('.capsule-stage');
 const screen = stage.closest('.capsule-screen');
@@ -18,8 +18,12 @@ const motion = matchMedia('(prefers-reduced-motion: no-preference)');
 let knob;
 let stock;
 let pendingDraw;
+const rewardPreview = new Image();
+rewardPreview.decoding = 'async';
 let gesture = null;
 const query = new URLSearchParams(location.search);
+const replay = query.get('spin') === '1';
+stage.toggleAttribute('data-replay', replay);
 
 if (query.get('state') === 'open') {
   form.elements.state.disabled = false;
@@ -81,7 +85,8 @@ async function vend(start = 0, direction = 1) {
   const { outcome } = pendingDraw;
   form.elements.prize.value = outcome.id;
   form.elements.prize.disabled = false;
-  fetch(outcome.art).then(response => response.blob()).catch(() => {});
+  rewardPreview.src = outcome.art;
+  rewardPreview.decode().catch(() => {});
 
   await Promise.all([
     animate(knob, [
@@ -240,7 +245,7 @@ async function loadMachine() {
 Promise.all([loadMachine(), picture.decode()])
   .then(() => {
     setPhase('ready');
-    if (query.get('spin') === '1') {
+    if (replay) {
       const url = new URL(location.href);
       url.searchParams.delete('spin');
       history.replaceState(history.state, '', url);

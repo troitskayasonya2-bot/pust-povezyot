@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="578" height="612" viewBox="0 0 578 612">
+  <defs>
+    <linearGradient id="glass" x2=".85" y2="1">
+      <stop stop-color="#c5e3ff" /><stop offset=".53" stop-color="#9acbfa" /><stop offset="1" stop-color="#70a7e9" />
+    </linearGradient>
+    <linearGradient id="glass-inside" x1=".35" y1="0" x2=".62" y2="1">
+      <stop stop-color="#568edf" /><stop offset="1" stop-color="#9bc7f6" />
+    </linearGradient>
+    <linearGradient id="cup-shadow" x1="0" y1="0" x2=".7" y2="1">
+      <stop stop-color="#e8a525" /><stop offset="1" stop-color="#ca7e17" />
+    </linearGradient>
+    <linearGradient id="cup-body" x1=".32" y1="0" x2=".72" y2="1">
+      <stop stop-color="#ffd65a" /><stop offset="1" stop-color="#efad21" />
+    </linearGradient>
+    <linearGradient id="cup-rim" x2=".55" y2="1">
+      <stop stop-color="#f9bd42" /><stop offset=".6" stop-color="#ffd86d" /><stop offset="1" stop-color="#ffe89f" />
+    </linearGradient>
+    <linearGradient id="cup-inside" x1=".46" y1="0" x2=".56" y2="1">
+      <stop stop-color="#ce8a28" /><stop offset=".5" stop-color="#a9611d" /><stop offset="1" stop-color="#81481f" />
+    </linearGradient>
+    <linearGradient id="reward-paper" x2="0" y2="1">
+      <stop stop-color="#fff4dd" /><stop offset=".58" stop-color="#ffedce" /><stop offset="1" stop-color="#eabd8e" />
+    </linearGradient>
+    <clipPath id="prize-visible">
+      <path d="M0 0H578V365H548C522 414 417 443 307 443C194 444 101 413 74 365H0Z" />
+    </clipPath>
+  </defs>
+  <g id="capsule-lid">
+    <path d="M254 231C234 240 217 246 197 251C170 259 141 266 113 270C94 273 77 275 59 275C45 275 30 274 24 268C13 253 9 229 12 207C13 189 17 173 24 155C42 107 76 70 121 43C153 23 189 11 227 10C239 10 251 10 263 13C313 22 356 50 384 92L392 105C396 112 400 120 402 128C406 142 398 151 389 161C359 188 301 215 254 231Z" fill="url(#glass)" stroke="#10264f" stroke-width="4.5" />
+    <path d="M21 243C32 160 85 83 168 42C238 8 305 23 352 70C317 50 267 57 220 75C129 109 63 162 21 243Z" fill="#c8e5ff" opacity=".56" />
+    <path d="M42 226C82 155 143 107 224 79C261 66 296 64 322 72C345 82 360 102 365 119C275 123 157 172 42 226Z" fill="#619ce2" opacity=".42" />
+    <path d="M22 258C26 238 83 206 147 178C228 142 342 115 386 125C395 127 399 131 399 137C398 151 364 176 318 199C238 240 135 267 64 273C42 274 25 271 22 263Z" fill="url(#glass-inside)" stroke="#18438b" stroke-width="3.7" />
+    <path d="M29 265C12 253 80 210 146 180C230 142 340 115 385 125C393 127 396 129 398 132" fill="none" stroke="#e0efff" stroke-width="4.6" stroke-linecap="round" />
+    <path d="M89 248C175 192 261 174 340 161C307 187 249 217 186 241C150 254 110 264 88 261C82 260 83 253 89 248Z" fill="#b0d9ff" opacity=".35" />
+    <path d="M67.23 146.04C65.42 148.57 63.28 150.97 60.62 151.53C58.73 151.94 57.58 149.24 57.63 147.54C58.19 130.08 74.51 107.24 86.58 93.74L101.89 78.41C122.76 59.81 147.11 46.60 173.77 38.93C188.15 34.79 212.23 30.94 225.61 35.49C226.51 35.79 228.31 37.15 227.96 38.09C226.03 39.57 223.54 40.07 221.13 40.69C180.88 50.94 145.29 69.68 113.12 96.42C95.55 111.02 80.52 127.45 67.23 146.04Z" fill="#fff0d6" />
+    <path d="M44 194C42 204 41 210 39 208C34 202 33 188 36 177C39 165 44 153 50 141C52 137 54 136 54 140C49 159 47 176 44 194Z" fill="#fcfaff" />
+  </g>
+  <g id="capsule-cup">
+    <path d="M53 359C53 341 62 328 74 316C111 280 185 265 236 260L260 257C317 250 397 252 455 268C493 276 545 295 564 332C568 340 570 346 570 352C572 375 566 402 559 424C548 458 530 490 506 516C482 541 455 560 425 576C407 584 390 591 372 595C326 605 278 605 233 593C201 584 174 568 148 550L138 542C114 523 92 494 78 466C65 440 57 412 55 384C54 376 53 368 53 359Z" fill="url(#cup-shadow)" stroke="#10264f" stroke-width="4.5" stroke-linejoin="round" />
+    <path d="M89 412C101 422 113 429 127 434C151 445 176 451 203 455C235 460 264 459 287 458C332 458 356 456 385 453C433 447 496 433 537 406L541 414C530 433 514 454 496 473L488 481C463 502 435 519 404 531C375 542 344 549 311 551C251 554 190 535 144 498C117 478 92 448 89 412Z" fill="url(#cup-body)" />
+    <path d="M54 361C54 308 166 255 312 255C459 253 570 297 570 354C570 413 450 457 307 457C167 458 54 417 54 361Z" fill="url(#cup-rim)" />
+    <path d="M72 355C74 310 180 271 312 269C449 267 553 305 553 354C553 404 440 441 307 443C178 444 72 404 72 355Z" fill="url(#cup-inside)" stroke="#10264f" stroke-width="3.6" />
+    <path d="M78 376C105 320 204 293 313 292C422 292 510 315 544 373C531 394 505 408 469 420C421 437 365 442 307 443C199 444 110 421 78 376Z" fill="#473046" opacity=".16" />
+    <g id="capsule-prize" clip-path="url(#prize-visible)" />
+    <path d="M72 355C72 404 178 444 307 443C440 441 553 404 553 354C551 407 444 451 308 455C170 456 62 411 55 365C60 381 64 386 73 394Z" fill="url(#cup-rim)" />
+    <path d="M72 355C72 404 178 444 307 443C440 441 553 404 553 354" fill="none" stroke="#10264f" stroke-width="3.6" stroke-linecap="round" />
+    <path d="M69 383C102 421 161 444 259 455Q265 456 262 458C198 466 106 440 69 383Z" fill="#fff1db" />
+    <path d="M472 432C497 422 517 412 528 407C518 417 493 430 472 432Z" fill="#ffead8" />
+    <path d="M101 311C122 298 145 288 166 283C149 285 124 293 110 301Q99 307 101 311Z" fill="#fff1db" opacity=".8" />
+  </g>
+</svg>

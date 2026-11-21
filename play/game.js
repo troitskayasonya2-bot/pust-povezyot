@@ -1,4 +1,4 @@
-import { getOutcome } from './outcomes.js';
+import { getOutcome } from './outcomes.js?v=2';
 
 const params = new URLSearchParams(location.search);
 const isPrediction = params.get('view') === 'prediction';
@@ -35,8 +35,12 @@ if (isPrediction) {
     desktop.querySelector('.desktop-outcome').classList.remove('sr-only');
   }
 
+  const shell = outcome.shell ?? 'assets/open-capsule.svg';
   for (const illustration of prediction.querySelectorAll('[data-outcome-art]')) {
     illustration.alt = outcome.alt;
+    illustration.dataset.waiting = '';
+    illustration.dataset.fallback = shell;
+    illustration.style.setProperty('--prediction-shell', `url("${shell}")`);
     illustration.src = outcome.art;
   }
   for (const title of prediction.querySelectorAll('[data-outcome-title]')) title.textContent = outcome.title;
@@ -64,11 +68,7 @@ function loadMachineIllustration(art) {
 }
 
 for (const illustration of scene.querySelectorAll('[data-fallback]')) {
-  const preview = setTimeout(() => {
-    if (!illustration.naturalWidth) illustration.setAttribute('data-waiting', '');
-  }, 300);
   illustration.addEventListener('load', () => {
-    clearTimeout(preview);
     illustration.removeAttribute('data-waiting');
   });
   const useFallback = () => {

@@ -64,7 +64,8 @@
 }
 
 :is(.desktop-ring, .compact-ring)[data-waiting] {
-  background: url(assets/closed-capsule.svg) center / auto 60% no-repeat;
+  background: var(--prediction-shell) center / contain no-repeat;
+  color: transparent;
 }
 
 .desktop-start-copy {

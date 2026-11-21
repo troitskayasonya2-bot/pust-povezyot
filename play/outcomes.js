@@ -8,14 +8,16 @@ const outcomes = {
   },
   bounce: {
     id: 'bounce',
-    art: 'assets/bounce-result.svg',
+    art: 'assets/bounce-result.svg?v=2',
+    shell: 'assets/bounce-shell.svg',
     alt: 'Разноцветный попрыгунчик в открытой капсуле',
     title: 'Со второго раза',
     text: 'То, что не получилось с первого раза, получится со второго.',
   },
   note: {
     id: 'note',
-    art: 'assets/note-result.svg',
+    art: 'assets/note-result.svg?v=2',
+    shell: 'assets/note-shell.svg',
     alt: 'Сложенная бумажка в открытой капсуле',
     title: 'Хорошие новости',
     text: 'Придут оттуда, откуда ты их не ждёшь.',
