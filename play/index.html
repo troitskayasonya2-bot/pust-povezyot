@@ -1,15 +1,17 @@
 <!doctype html>
-<html lang="ru">
+<html lang="ru" style="background-color:#b1dafa">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Пусть повезёт</title>
   <link rel="icon" href="data:,">
-  <link rel="stylesheet" href="../raffle-light-v14/styles.css?v=6">
-  <link rel="stylesheet" href="game.css?v=6">
+  <link rel="stylesheet" href="../raffle-light-v14/styles.css?v=8">
+  <link rel="stylesheet" href="game.css?v=8">
   <link rel="modulepreload" href="outcomes.js?v=3">
   <script>
-    if (new URLSearchParams(location.search).get('view') !== 'prediction') {
+    if (new URLSearchParams(location.search).get('view') === 'prediction') {
+      document.documentElement.dataset.prediction = '';
+    } else {
       for (const file of ['machine-body', 'machine-grabber']) {
         const preload = document.createElement('link');
         preload.rel = 'preload';
@@ -19,7 +21,7 @@
       }
     }
   </script>
-  <script src="game.js?v=6" type="module"></script>
+  <script src="game.js?v=8" type="module" blocking="render"></script>
   <script src="../raffle-light-v14/press.js" defer></script>
 </head>
 <body class="game">
@@ -61,7 +63,9 @@
       <div class="desktop">
         <div class="desktop-result-copy">
           <img class="desktop-brand desktop-result-brand" src="assets/partners.svg" loading="lazy" alt="Авиасейлс × modi" width="257" height="35">
-          <img class="desktop-ring" alt="Кольцо с красным камнем в открытой капсуле" width="578" height="612" data-outcome-art>
+          <div class="outcome-illustration desktop-reward">
+            <img class="desktop-ring" alt="Кольцо с красным камнем в открытой капсуле" width="578" height="612" data-outcome-art>
+          </div>
           <img class="desktop-interface" data-src="assets/desktop-result-ui.svg?v=6" alt="" width="1440" height="900" fetchpriority="high">
           <article class="desktop-outcome sr-only">
             <h1 data-outcome-title>Тебе сделают предложение.</h1>
@@ -76,7 +80,9 @@
           <img src="assets/partners.svg" alt="Авиасейлс × modi" width="257" height="35">
           <img class="compact-wordmark" src="../raffle-light-v14/assets/wordmark.svg" alt="Пусть повезёт" width="170" height="65">
         </header>
-        <img class="compact-ring" alt="Кольцо с красным камнем в открытой капсуле" width="578" height="612" data-outcome-art>
+        <div class="outcome-illustration compact-reward">
+          <img class="compact-ring" alt="Кольцо с красным камнем в открытой капсуле" width="578" height="612" data-outcome-art>
+        </div>
         <article class="paper">
           <h1 data-outcome-title>Тебе сделают предложение.</h1>
           <p data-outcome-text>Заказать пиццу и никуда не идти.</p>

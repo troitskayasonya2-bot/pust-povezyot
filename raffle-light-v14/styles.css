@@ -20,6 +20,23 @@
 * { box-sizing: border-box; }
 body { margin: 0; font-family: Golos, sans-serif; color: var(--ink); }
 [hidden] { display: none !important; }
+
+@media (prefers-reduced-motion: no-preference) {
+  @view-transition { navigation: auto; }
+
+  ::view-transition-old(root) {
+    animation: none;
+    mix-blend-mode: normal;
+  }
+
+  ::view-transition-new(root) {
+    animation: screen-arrival 260ms cubic-bezier(.22,1,.36,1) both;
+    mix-blend-mode: normal;
+  }
+
+  @keyframes screen-arrival { from { opacity: 0; } }
+}
+
 .screen {
   position: relative;
   isolation: isolate;

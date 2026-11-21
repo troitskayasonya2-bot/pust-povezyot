@@ -6,6 +6,8 @@
   min-height: 100svh;
 }
 
+html[data-prediction] #start { display: none; }
+
 .desktop {
   display: none;
   position: relative;
@@ -32,6 +34,8 @@
 .machine-illustration {
   aspect-ratio: 1040 / 878;
 }
+
+.machine-illustration:not([data-loaded], :has([data-fallback-active])) { opacity: 0; }
 
 .machine-body {
   display: block;
@@ -63,10 +67,30 @@
   }
 }
 
-:is(.desktop-ring, .compact-ring)[data-waiting] {
-  background: var(--prediction-shell) center / contain no-repeat;
-  color: transparent;
+.outcome-illustration {
+  position: relative;
+  aspect-ratio: 578 / 612;
 }
+
+.outcome-illustration::before {
+  position: absolute;
+  inset: 0;
+  background: var(--prediction-shell) center / contain no-repeat;
+  opacity: 0;
+  content: '';
+}
+
+.outcome-illustration:has(img[data-waiting])::before { opacity: 1; }
+
+.outcome-illustration img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.outcome-illustration img[data-waiting] { opacity: 0; }
 
 .desktop-start-copy {
   --ui-max: max(1502.6px, min(78.260417vw, 139.12963svh));
@@ -137,12 +161,11 @@
   width: 17.847222%;
 }
 
-.desktop-ring {
+.desktop-reward {
   position: absolute;
   top: 21.222222%;
   left: 4.722222%;
   width: 40.138889%;
-  height: auto;
 }
 
 .desktop-interface {
@@ -193,6 +216,9 @@
   --action-height: 4.666667%;
   border-radius: 3px;
 }
+
+.desktop:not([data-ready]) :is(.desktop-interface, .hotspot) { opacity: 0; }
+.desktop:not([data-ready]) .hotspot { visibility: hidden; }
 
 .hotspot.to-raffle {
   --action-x: 63.541667%;
@@ -300,11 +326,9 @@
   text-underline-offset: 4px;
 }
 
-.compact-ring {
+.compact-reward {
   width: min(77%, 310px);
   max-height: min(34svh, 340px);
-  height: auto;
-  object-fit: contain;
 }
 
 .paper {
@@ -373,7 +397,7 @@
 @media (max-height: 680px) {
   .compact-intro { line-height: 1.32; }
   .compact .arcade-button { min-height: 48px; }
-  .compact-ring { max-height: 29svh; }
+  .compact-reward { max-height: 29svh; }
   .paper { padding: 17px 16px; }
 }
 
@@ -388,12 +412,12 @@
 
 @media (min-width: 560px) and (min-height: 740px) and (max-aspect-ratio: 5/4) {
   #start .compact-title,
-  #prediction .compact-ring { margin-top: auto; }
+  #prediction .compact-reward { margin-top: auto; }
 
   .compact-start-actions,
   .compact-result-actions { margin-bottom: auto; }
 
-  .compact-ring {
+  .compact-reward {
     width: min(77%, 366px);
     max-height: 38svh;
   }
@@ -433,7 +457,7 @@
     width: min(100%, calc(var(--machine-height) * 1040 / 878));
   }
 
-  .compact-ring {
+  .compact-reward {
     grid-area: art;
     justify-self: center;
     width: 100%;
@@ -447,19 +471,18 @@
 }
 
 @media (min-width: 1000px) and (min-height: 640px) and (min-aspect-ratio: 5/4) {
-  .desktop[data-ready] { display: block; }
-  .desktop[data-ready] + .compact { display: none; }
+  .desktop:not([data-layout-fallback]) { display: block; }
+  .desktop:not([data-layout-fallback]) + .compact { display: none; }
 }
 
 @media (prefers-reduced-motion: no-preference) {
   .hotspot-art { transition: translate 85ms ease-out, filter 85ms ease-out; }
   .hotspot:is(:active, [data-pressed]) .hotspot-art { translate: 0 var(--press-travel, 4px); }
 
-  #prediction :is(.compact-ring, .desktop-ring) { animation: reveal 300ms ease-out both; }
-  #prediction .paper,
-  #prediction .compact-result-actions { animation: reveal 300ms 70ms ease-out both; }
-
-  @keyframes reveal {
-    from { opacity: 0; translate: 0 10px; }
+  .desktop :is(.desktop-interface, .hotspot),
+  .machine-illustration,
+  .outcome-illustration::before,
+  .outcome-illustration img {
+    transition: opacity 180ms ease-out;
   }
 }

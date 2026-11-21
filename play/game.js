@@ -40,7 +40,7 @@ if (isPrediction) {
     illustration.alt = outcome.alt;
     illustration.dataset.waiting = '';
     illustration.dataset.fallback = shell;
-    illustration.style.setProperty('--prediction-shell', `url("${shell}")`);
+    illustration.parentElement.style.setProperty('--prediction-shell', `url("${shell}")`);
     illustration.src = outcome.art;
   }
   for (const title of prediction.querySelectorAll('[data-outcome-title]')) title.textContent = outcome.title;
@@ -49,11 +49,15 @@ if (isPrediction) {
 
 function loadDesktopInterface() {
   if (!wide.matches || vectorInterface.hasAttribute('src')) return;
+  desktop.removeAttribute('data-layout-fallback');
   vectorInterface.src = vectorInterface.dataset.src;
-  vectorInterface.decode()
+  const buttons = [...desktop.querySelectorAll('.hotspot-art')];
+  for (const image of buttons) image.loading = 'eager';
+  Promise.all([vectorInterface.decode(), ...buttons.map(image => image.decode())])
     .then(() => desktop.setAttribute('data-ready', ''))
     .catch(() => {
       vectorInterface.removeAttribute('src');
+      desktop.setAttribute('data-layout-fallback', '');
       if (!isPrediction) loadMachineIllustration(start.querySelector('.compact-machine'));
     });
 }
@@ -64,21 +68,22 @@ function loadMachineIllustration(art) {
   for (const image of images) image.src = image.dataset.src;
   Promise.all(images.map(image => image.decode()))
     .then(() => art.setAttribute('data-loaded', ''))
-    .catch(() => {});
+    .catch(() => useFallback(images[0]));
+}
+
+function useFallback(illustration) {
+  if (illustration.hasAttribute('data-fallback-active')) return;
+  illustration.setAttribute('data-fallback-active', '');
+  illustration.src = illustration.dataset.fallback;
+  if (illustration.alt) illustration.alt = 'Капсула';
 }
 
 for (const illustration of scene.querySelectorAll('[data-fallback]')) {
   illustration.addEventListener('load', () => {
     illustration.removeAttribute('data-waiting');
   });
-  const useFallback = () => {
-    if (illustration.hasAttribute('data-fallback-active')) return;
-    illustration.setAttribute('data-fallback-active', '');
-    illustration.src = illustration.dataset.fallback;
-    if (illustration.alt) illustration.alt = 'Капсула';
-  };
-  illustration.addEventListener('error', useFallback);
-  if (illustration.hasAttribute('src') && illustration.complete && !illustration.naturalWidth) useFallback();
+  illustration.addEventListener('error', () => useFallback(illustration));
+  if (illustration.hasAttribute('src') && illustration.complete && !illustration.naturalWidth) useFallback(illustration);
 }
 
 wide.addEventListener('change', loadDesktopInterface);
