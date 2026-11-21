@@ -1,13 +1,91 @@
 <!doctype html>
 <html lang="ru">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <base href="./play/">
   <meta name="description" content="Пусть повезёт — игра с капсулами и предсказаниями, концепт для портфолио.">
-  <meta http-equiv="refresh" content="0; url=./play/">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Пусть повезёт</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="../raffle-light-v14/styles.css?v=3">
+  <link rel="stylesheet" href="game.css?v=2">
+  <link rel="modulepreload" href="outcomes.js?v=3">
+  <script>
+    if (new URLSearchParams(location.search).get('view') !== 'prediction') {
+      for (const file of ['machine-body', 'machine-grabber']) {
+        const preload = document.createElement('link');
+        preload.rel = 'preload';
+        preload.as = 'image';
+        preload.href = `assets/${file}.svg?v=3`;
+        document.head.append(preload);
+      }
+    }
+  </script>
+  <script src="game.js?v=3" type="module"></script>
 </head>
-<body>
-  <a href="./play/">Открыть игру «Пусть повезёт»</a>
+<body class="game">
+  <main id="game">
+    <section id="start" class="scene" aria-label="Старт игры">
+      <div class="desktop">
+        <div class="desktop-hero machine-illustration" aria-hidden="true">
+          <img class="machine-body" data-src="assets/machine-body.svg?v=3" alt="" width="1040" height="878" data-fallback="assets/vending-machine.svg" fetchpriority="high">
+          <img class="machine-grabber" data-src="assets/machine-grabber.svg?v=3" alt="" width="515" height="447">
+        </div>
+        <div class="desktop-start-copy">
+          <img class="desktop-brand" src="assets/partners.svg" loading="lazy" alt="Авиасейлс × modi" width="257" height="35">
+          <img class="desktop-interface" data-src="assets/desktop-start-ui.svg" alt="" width="1366" height="900" fetchpriority="high">
+          <h1 class="sr-only">Пусть повезёт</h1>
+          <p class="sr-only">Запускай автомат из детства, получай предсказания и участвуй в розыгрыше путешествия от Авиасейлс и подарков от modi.</p>
+          <a class="hotspot launch" data-action="launch" href="capsule.html"><span class="sr-only">Запустить автомат</span></a>
+          <a class="hotspot prizes" data-action="prizes" href="../raffle-light-v14/?from=game"><span class="sr-only">Что можно выиграть</span></a>
+        </div>
+      </div>
+      <div class="compact">
+        <header class="compact-header">
+          <img src="assets/partners.svg" alt="Авиасейлс × modi" width="257" height="35">
+        </header>
+        <h1 class="compact-title"><img src="assets/title.svg" alt="Пусть повезёт" width="694" height="208"></h1>
+        <p class="compact-intro">Запускай автомат из детства, получай предсказания и участвуй в розыгрыше путешествия от Авиасейлс и подарков от modi.</p>
+        <div class="compact-machine machine-illustration" aria-hidden="true">
+          <img class="machine-body" data-src="assets/machine-body.svg?v=3" alt="" width="1040" height="878" data-fallback="assets/vending-machine.svg" fetchpriority="high">
+          <img class="machine-grabber" data-src="assets/machine-grabber.svg?v=3" alt="" width="515" height="447">
+        </div>
+        <div class="compact-start-actions">
+          <a class="arcade-button" data-action="launch" href="capsule.html">Запустить автомат</a>
+          <a class="game-link" data-action="prizes" href="../raffle-light-v14/?from=game">Что можно выиграть</a>
+        </div>
+      </div>
+    </section>
+    <section id="prediction" class="scene" aria-label="Предсказание" hidden>
+      <div class="desktop">
+        <div class="desktop-result-copy">
+          <img class="desktop-brand desktop-result-brand" src="assets/partners.svg" loading="lazy" alt="Авиасейлс × modi" width="257" height="35">
+          <img class="desktop-ring" alt="Кольцо с красным камнем в открытой капсуле" width="578" height="612" data-outcome-art>
+          <img class="desktop-interface" data-src="assets/desktop-result-ui.svg" alt="" width="1440" height="900" fetchpriority="high">
+          <article class="desktop-outcome sr-only">
+            <h1 data-outcome-title>Тебе сделают предложение.</h1>
+            <p data-outcome-text>Заказать пиццу и никуда не идти.</p>
+          </article>
+          <a class="hotspot to-raffle" data-action="raffle" href="../raffle-light-v14/?from=game"><span class="sr-only">К розыгрышу</span></a>
+          <a class="hotspot again" data-action="again" href="capsule.html?spin=1"><span class="sr-only">Ещё капсула</span></a>
+        </div>
+      </div>
+      <div class="compact">
+        <header class="compact-header">
+          <img src="assets/partners.svg" alt="Авиасейлс × modi" width="257" height="35">
+          <img class="compact-wordmark" src="../raffle-light-v14/assets/wordmark.svg" alt="Пусть повезёт" width="170" height="65">
+        </header>
+        <img class="compact-ring" alt="Кольцо с красным камнем в открытой капсуле" width="578" height="612" data-outcome-art>
+        <article class="paper">
+          <h1 data-outcome-title>Тебе сделают предложение.</h1>
+          <p data-outcome-text>Заказать пиццу и никуда не идти.</p>
+        </article>
+        <div class="compact-result-actions">
+          <a class="arcade-button" data-action="raffle" href="../raffle-light-v14/?from=game">К розыгрышу</a>
+          <a class="arcade-button secondary" data-action="again" href="capsule.html?spin=1">Ещё капсула</a>
+        </div>
+      </div>
+    </section>
+  </main>
 </body>
 </html>

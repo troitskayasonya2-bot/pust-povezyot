@@ -1,4 +1,4 @@
-import { drawOutcome, saveOutcome } from './outcomes.js?v=2';
+import { drawOutcome, saveOutcome } from './outcomes.js?v=3';
 
 const stage = document.querySelector('.capsule-stage');
 const screen = stage.closest('.capsule-screen');

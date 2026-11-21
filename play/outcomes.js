@@ -1,7 +1,7 @@
 const outcomes = {
   ring: {
     id: 'ring',
-    art: 'assets/ring.svg',
+    art: 'assets/ring.svg?v=3',
     alt: 'Кольцо с красным камнем в открытой капсуле',
     title: 'Тебе сделают предложение.',
     text: 'Заказать пиццу и никуда не идти.',

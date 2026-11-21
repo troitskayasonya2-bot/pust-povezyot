@@ -1,11 +1,11 @@
 @font-face {
   font-family: Dela;
-  src: url(assets/dela-gothic-one.ttf) format('truetype');
+  src: url(assets/dela-cyrillic-latin.woff2) format('woff2');
   font-display: swap;
 }
 @font-face {
   font-family: Golos;
-  src: url(assets/golos-text.ttf) format('truetype');
+  src: url(assets/golos-text.woff2) format('woff2');
   font-weight: 100 900;
   font-display: swap;
 }
