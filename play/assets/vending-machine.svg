@@ -1,0 +1,125 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 720" width="480" height="720" role="img" aria-labelledby="vending-title">
+  <title id="vending-title">Синий автомат с капсулами и жёлтой ручкой</title>
+  <defs>
+    <linearGradient id="vending-enamel" x1="104" y1="411" x2="375" y2="653" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#397be6"/><stop offset=".38" stop-color="#1a51c2"/><stop offset="1" stop-color="#153783"/>
+    </linearGradient>
+    <linearGradient id="vending-lid" x1="144" y1="52" x2="321" y2="118" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#72b5fb"/><stop offset=".53" stop-color="#2569e0"/><stop offset="1" stop-color="#173e9c"/>
+    </linearGradient>
+    <linearGradient id="vending-glass" x1="118" y1="137" x2="387" y2="378" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#f6f1f1" stop-opacity=".41"/><stop offset=".58" stop-color="#ffd6a8" stop-opacity=".12"/><stop offset="1" stop-color="#579be9" stop-opacity=".65"/>
+    </linearGradient>
+    <linearGradient id="vending-metal" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#fcf5dc"/><stop offset=".52" stop-color="#b8d3ec"/><stop offset="1" stop-color="#6587b6"/>
+    </linearGradient>
+    <linearGradient id="vending-rim" x2="0" y2="1">
+      <stop stop-color="#ff9c80"/><stop offset=".55" stop-color="#fb5e59"/><stop offset="1" stop-color="#bd373f"/>
+    </linearGradient>
+    <linearGradient id="vending-gold" x2="0" y2="1">
+      <stop stop-color="#ffdc6b"/><stop offset=".58" stop-color="#ffc32a"/><stop offset="1" stop-color="#dc8d10"/>
+    </linearGradient>
+    <linearGradient id="vending-cream" x2="1" y2="1">
+      <stop stop-color="#fff4da"/><stop offset=".62" stop-color="#ffe1ae"/><stop offset="1" stop-color="#dfac71"/>
+    </linearGradient>
+    <linearGradient id="vending-slot" x2="0" y2="1">
+      <stop stop-color="#101b40"/><stop offset="1" stop-color="#153678"/>
+    </linearGradient>
+    <linearGradient id="vending-toy-dome" x2="1" y2="1">
+      <stop stop-color="#e9f5ff" stop-opacity=".77"/><stop offset=".72" stop-color="#bad8ff" stop-opacity=".45"/><stop offset="1" stop-color="#659bdd" stop-opacity=".81"/>
+    </linearGradient>
+    <radialGradient id="vending-floor-shadow">
+      <stop stop-color="#741d3a" stop-opacity=".31"/><stop offset="1" stop-color="#741d3a" stop-opacity="0"/>
+    </radialGradient>
+    <path id="vending-globe-shape" d="M153 105C121 116 93 140 76 173C51 222 53 284 76 329C88 353 108 375 135 394H345C384 370 413 332 421 288C437 203 404 131 328 105Z"/>
+    <clipPath id="vending-globe-clip"><use href="#vending-globe-shape"/></clipPath>
+    <g id="vending-screw">
+      <circle r="7.6" fill="url(#vending-metal)" stroke="#10264f" stroke-width="2"/>
+      <path d="M-3.3 0H3.3M0-3.3V3.3" fill="none" stroke="#10264f" stroke-width="1.7" stroke-linecap="round"/>
+    </g>
+    <g id="vending-stock-shell">
+      <path d="M-44 1C-44-25-25-45 0-45S44-25 44 1Q0 15-44 1Z" fill="url(#vending-toy-dome)" stroke="#18345b" stroke-width="2.4"/>
+      <path d="M-43 5C-39 30-23 44 0 44S39 30 43 5Z" fill="currentColor" stroke="#18345b" stroke-width="2.4"/>
+      <path d="M-35 14C-15 37 17 40 35 19C28 33 16 41 0 41C-15 41-30 31-35 14Z" fill="#182955" opacity=".27"/>
+      <path d="M-43 0Q0 9 43 0L44 9Q0 19-44 9Z" fill="currentColor" stroke="#18345b" stroke-width="2.25" stroke-linejoin="round"/>
+      <path d="M-41 2Q0 11 41 2" fill="none" stroke="#fff8e3" stroke-opacity=".78" stroke-width="2" stroke-linecap="round"/>
+      <path d="M-33-11C-31-26-18-36-4-38C3-39 6-35-2-32C-14-28-23-22-28-12C-31-6-34-7-33-11Z" fill="#fff5dd"/>
+      <path d="M18-34C32-28 38-16 39-7" fill="none" stroke="#f5f6ff" stroke-width="1.7" stroke-opacity=".87" stroke-linecap="round"/>
+    </g>
+  </defs>
+
+  <ellipse cx="241" cy="684" rx="175" ry="21" fill="url(#vending-floor-shadow)"/>
+  <path d="M117 638H168V672Q168 681 157 682H131Q119 681 117 671ZM312 638H363V671Q361 681 349 682H323Q312 681 312 672Z" fill="#203d77" stroke="#10264f" stroke-width="4"/>
+  <path d="M115 409H365L383 649H97Z" fill="url(#vending-enamel)" stroke="#10264f" stroke-width="4.5" stroke-linejoin="round"/>
+  <path d="M126 417H141L124 639H109ZM342 417H357L374 640H354Z" fill="#74baff" opacity=".46"/>
+  <path d="M120 425L106 633M354 428L370 631" fill="none" stroke="#a7d6fd" stroke-width="3" stroke-linecap="round" opacity=".8"/>
+  <path d="M125 585L110 625Q108 631 116 631H147Q153 631 150 625Z" fill="#18377a" stroke="#ffcd59" stroke-width="3.5" stroke-linejoin="round"/>
+  <path d="M355 585L330 625Q327 631 334 631H365Q372 631 370 625Z" fill="#18377a" stroke="#ffcd59" stroke-width="3.5" stroke-linejoin="round"/>
+
+  <use href="#vending-globe-shape" fill="url(#vending-glass)"/>
+  <g clip-path="url(#vending-globe-clip)">
+    <ellipse cx="244" cy="342" rx="166" ry="87" fill="#b6d6f4" opacity=".33"/>
+    <path d="M87 353C122 392 177 409 239 407C326 405 392 368 416 307L418 395H75Z" fill="#284a90" opacity=".34"/>
+    <g transform="translate(239 162) rotate(-14)" color="#f35057"><g data-stock=""><use href="#vending-stock-shell"/></g></g>
+    <g transform="translate(160 207) rotate(-10)" color="#ffc02a"><g data-stock=""><use href="#vending-stock-shell"/></g></g>
+    <g transform="translate(323 205) rotate(17)" color="#3187ec"><g data-stock=""><use href="#vending-stock-shell"/></g></g>
+    <g transform="translate(111 271) rotate(-23)" color="#3886ee"><g data-stock=""><use href="#vending-stock-shell"/></g></g>
+    <g transform="translate(233 248) rotate(-6)" color="#19b9d1"><g data-stock=""><use href="#vending-stock-shell"/></g></g>
+    <g transform="translate(313 276) rotate(-7)" color="#ffd03e"><g data-stock=""><use href="#vending-stock-shell"/></g></g>
+    <g transform="translate(176 307) rotate(12)" color="#ff6572"><g data-stock=""><use href="#vending-stock-shell"/></g></g>
+    <g transform="translate(368 320) rotate(23)" color="#f84d58"><g data-stock=""><use href="#vending-stock-shell"/></g></g>
+    <g transform="translate(124 363) rotate(6)" color="#21becf"><g data-stock=""><use href="#vending-stock-shell"/></g></g>
+    <g transform="translate(303 360) rotate(21)" color="#256ce3"><g data-stock=""><use href="#vending-stock-shell"/></g></g>
+    <g transform="translate(225 364) rotate(-5)" color="#ffc52d"><g data-stock=""><use href="#vending-stock-shell"/></g></g>
+    <path d="M132 116C83 150 65 196 68 244C73 202 94 164 137 139C149 131 160 119 151 115C147 113 138 113 132 116Z" fill="#fff5e0" opacity=".91"/>
+    <path d="M77 256C73 312 101 359 135 380" fill="none" stroke="#d3e9fb" stroke-width="7" stroke-linecap="round" opacity=".65"/>
+    <path d="M352 133C409 176 427 271 396 333C383 358 370 373 353 384" fill="none" stroke="#dbeeff" stroke-width="6" stroke-linecap="round" opacity=".64"/>
+  </g>
+  <use href="#vending-globe-shape" fill="none" stroke="#10264f" stroke-width="4.5" stroke-linejoin="round"/>
+  <path d="M141 96C154 55 196 32 240 32S326 55 339 96Z" fill="url(#vending-lid)" stroke="#10264f" stroke-width="4.5"/>
+  <path d="M167 74C180 53 205 43 227 42C239 42 239 48 226 52C208 56 188 66 178 76C169 85 163 82 167 74Z" fill="#fff0d4"/>
+  <path d="M149 91Q240 82 331 91Q345 92 348 101L349 106Q348 114 337 115H143Q132 114 131 106L132 101Q135 92 149 91Z" fill="url(#vending-lid)" stroke="#10264f" stroke-width="4" stroke-linejoin="round"/>
+  <path d="M145 98Q240 90 335 98M143 105H337" fill="none" stroke="#9cd7ff" stroke-width="2.6" stroke-linecap="round" opacity=".82"/>
+
+  <path d="M124 389H356Q372 390 373 401V411Q373 423 358 423H122Q107 423 107 411V401Q108 390 124 389Z" fill="url(#vending-rim)" stroke="#10264f" stroke-width="4.5"/>
+  <path d="M119 398C127 395 176 395 204 395M272 397H356" fill="none" stroke="#ffe1c5" stroke-width="3.2" stroke-linecap="round" opacity=".8"/>
+  <use href="#vending-screw" x="144" y="406"/><use href="#vending-screw" x="336" y="406"/>
+
+  <circle cx="155" cy="450" r="24" fill="url(#vending-cream)" stroke="#10264f" stroke-width="3.5"/>
+  <circle cx="155" cy="450" r="18.5" fill="none" stroke="#e2ac72" stroke-width="2"/>
+  <path d="M155 440V460" fill="none" stroke="#10264f" stroke-width="6" stroke-linecap="round"/>
+  <rect x="184" y="430" width="112" height="102" rx="15" fill="url(#vending-cream)" stroke="#10264f" stroke-width="3.6"/>
+  <path d="M190 448Q190 436 203 436H277" fill="none" stroke="#fff5e4" stroke-width="3" stroke-linecap="round"/>
+  <use href="#vending-screw" x="196" y="443"/><use href="#vending-screw" x="284" y="443"/>
+  <use href="#vending-screw" x="196" y="520"/><use href="#vending-screw" x="284" y="520"/>
+  <circle cx="240" cy="478" r="40.6" fill="#e6a63d" stroke="#10264f" stroke-width="2.8"/>
+  <g id="vending-knob">
+    <circle cx="240" cy="478" r="37" fill="url(#vending-gold)" stroke="#80511d" stroke-width="2.2"/>
+    <path d="M207 463C216 447 234 442 246 445C230 448 220 453 212 465Z" fill="#fff0b5"/>
+    <path d="M211 497C226 511 248 515 268 501" fill="none" stroke="#d58c18" stroke-width="4" stroke-linecap="round"/>
+    <rect x="192" y="464" width="96" height="29" rx="10" fill="#9b6a21" stroke="#10264f" stroke-width="2"/>
+    <rect x="192" y="461.5" width="96" height="27.5" rx="9" fill="url(#vending-gold)" stroke="#10264f" stroke-width="2"/>
+    <path d="M199 470Q200 466 205 466H276" fill="none" stroke="#fff0ac" stroke-width="2.6" stroke-linecap="round"/>
+    <path d="M208 471V483M216 471V483M224 471V483M232 471V483M240 471V483M248 471V483M256 471V483M264 471V483M272 471V483" fill="none" stroke="#da9526" stroke-width="2" stroke-linecap="round"/>
+  </g>
+
+  <path d="M171 539H309Q330 539 331 562L329 604Q327 627 306 633H174Q153 627 151 604L149 562Q150 539 171 539Z" fill="url(#vending-cream)" stroke="#10264f" stroke-width="4.5"/>
+  <path d="M173 547H307Q321 547 323 563L321 598Q320 608 309 610H171Q160 608 159 598L157 563Q159 547 173 547Z" fill="url(#vending-slot)" stroke="#10264f" stroke-width="3.2"/>
+  <path d="M161 598H319Q317 606 308 608H172Q163 606 161 598Z" fill="#2256a7"/>
+  <path d="M171 618H308" fill="none" stroke="#fff0d1" stroke-width="3" stroke-linecap="round"/>
+  <path d="M219 617V626M240 617V626M261 617V626" fill="none" stroke="#be8f61" stroke-width="2.8" stroke-linecap="round"/>
+
+  <path d="M106 635H374Q390 635 391 646L394 663Q394 674 379 675H101Q86 674 86 663L89 646Q90 635 106 635Z" fill="url(#vending-lid)" stroke="#10264f" stroke-width="4.5"/>
+  <path d="M98 644H382" fill="none" stroke="#99cfff" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+  <rect x="143" y="649" width="194" height="15" rx="7.5" fill="url(#vending-rim)" stroke="#10264f" stroke-width="2.6"/>
+  <path d="M153 653H325" fill="none" stroke="#ffe1cd" stroke-width="1.8" stroke-opacity=".8" stroke-linecap="round"/>
+  <g id="vending-tag" transform="translate(364.8 396.72) scale(.76)">
+    <g transform="rotate(15 58 35)">
+      <path d="M56 28H103Q109 28 109 34V72Q109 78 103 78H56L39 56Q37 53 39 50Z" fill="#10264f"/>
+      <path d="M56 26H103Q109 26 109 32V68Q109 74 103 74H56L39 54Q37 51 39 48Z" fill="#fff3df" stroke="#10264f" stroke-width="2"/>
+      <circle cx="49" cy="50" r="2.8" fill="#10264f"/>
+      <path d="M24.2209 8.88572C21.5075 8.88572 19.0511 9.94286 17.2231 11.6571C15.3951 9.94286 12.9388 8.88572 10.2253 8.88572C4.59855 8.88572 0 13.4571 0 19.1143V26.7714C0 28.5714 1.45668 30 3.22755 30C4.99842 30 6.45511 28.5714 6.45511 26.7714V19.1143C6.45511 17.0286 8.14029 15.3429 10.2253 15.3429C12.3104 15.3429 13.9956 17.0286 13.9956 19.1143V26.7714C13.9956 28.5714 15.4523 30 17.2231 30C18.994 30 20.4507 28.5714 20.4507 26.7714V19.1143C20.4507 17.0286 22.1359 15.3429 24.2209 15.3429C26.306 15.3429 27.9912 17.0286 27.9912 19.1143V26.7714C27.9912 28.5714 29.4479 30 31.2187 30C32.9896 30 34.4463 28.5714 34.4463 26.7714V19.1143C34.4177 13.4571 29.8477 8.88572 24.2209 8.88572ZM47.0709 8.88572C41.2441 8.88572 36.5313 13.6 36.5313 19.4286C36.5313 25.2571 41.2727 29.9714 47.0709 29.9714C52.8976 29.9714 57.6104 25.2286 57.6104 19.4286C57.6104 13.6 52.8976 8.88572 47.0709 8.88572ZM47.0709 23.5429C44.8144 23.5429 42.9865 21.6857 42.9865 19.4286C42.9865 17.1714 44.8144 15.3143 47.0709 15.3143C49.3273 15.3143 51.1839 17.1714 51.1839 19.4286C51.1553 21.6857 49.3273 23.5429 47.0709 23.5429ZM77.6041 0C75.8332 0 74.3766 1.45714 74.3766 3.22857V9.71429C73.1198 9.17143 71.7203 8.88572 70.2636 8.88572C64.4368 8.88572 59.724 13.6 59.724 19.4286C59.724 25.2571 64.4654 29.9714 70.2636 29.9714C76.0903 29.9714 80.8317 25.2286 80.8317 19.4286V3.22857C80.8317 1.45714 79.375 0 77.6041 0ZM70.2636 23.5429C68.0071 23.5429 66.1791 21.6857 66.1791 19.4286C66.1791 17.1714 68.0071 15.3143 70.2636 15.3143C72.52 15.3143 74.3766 17.1714 74.3766 19.4286C74.3766 21.6857 72.5486 23.5429 70.2636 23.5429ZM87.3153 11.6571C85.5445 11.6571 84.0878 13.1143 84.0878 14.8857V26.7714C84.0878 28.5714 85.5445 30 87.3153 30C89.0862 30 90.5429 28.5714 90.5429 26.7714V14.8857C90.5429 13.1143 89.0862 11.6571 87.3153 11.6571ZM87.3153 8.25714C89.5718 8.25714 91.3998 6.42857 91.3998 4.14286C91.3998 1.88571 89.5718 0.0285732 87.3153 0.0285732C85.0589 0.0285732 83.2024 1.85714 83.2024 4.14286C83.2309 6.4 85.0589 8.25714 87.3153 8.25714Z" transform="translate(58 43) scale(.456522)" fill="#10264f"/>
+    </g>
+    <path d="M11 8C21 0 42 12 45.4 47.1M11 8C21 3 37 13 45.4 47.1" fill="none" stroke="#10264f" stroke-width="2" stroke-linecap="round"/>
+  </g>
+</svg>

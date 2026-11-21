@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="440" height="440" viewBox="0 0 440 440">
+  <defs>
+    <linearGradient id="glass" x1="87" x2="330" y1="31" y2="222" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#d2e8ff" stop-opacity=".82"/>
+      <stop offset=".53" stop-color="#96c9f8" stop-opacity=".72"/>
+      <stop offset="1" stop-color="#477ed0" stop-opacity=".9"/>
+    </linearGradient>
+    <linearGradient id="glass-light" x1="92" x2="254" y1="31" y2="190" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#fff4dd"/>
+      <stop offset=".61" stop-color="#e5f2ff"/>
+      <stop offset="1" stop-color="#e5f2ff" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="cup" x1="91" x2="316" y1="264" y2="443" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#ff7064"/>
+      <stop offset=".53" stop-color="#f84c49"/>
+      <stop offset="1" stop-color="#c53237"/>
+    </linearGradient>
+    <linearGradient id="seam" x1="207" x2="207" y1="216" y2="269" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#ff9d8c"/>
+      <stop offset=".24" stop-color="#ff665b"/>
+      <stop offset=".75" stop-color="#f54b4b"/>
+      <stop offset="1" stop-color="#d7383b"/>
+    </linearGradient>
+    <clipPath id="glass-outline">
+      <path d="M19 220C19 99 104 6 220 6S421 99 421 220Q220 244 19 220Z"/>
+    </clipPath>
+  </defs>
+  <path d="M19 220C19 99 104 6 220 6S421 99 421 220Q220 244 19 220Z" fill="url(#glass)"/>
+  <g clip-path="url(#glass-outline)">
+    <path d="M81 75C127 27 188 16 235 23C315 34 385 101 399 193C368 133 321 103 261 97C186 89 115 123 57 176C60 144 65 104 81 75Z" fill="#b1d8fb" fill-opacity=".53"/>
+    <path d="M232 12C339 26 415 123 421 222L386 222C380 124 322 45 232 12Z" fill="#4c82c9" fill-opacity=".43"/>
+    <path d="M35 212C39 114 99 39 178 22C106 46 53 124 49 208Z" fill="#edf5ff" fill-opacity=".74"/>
+    <path d="M74 141C78 106 119 66 160 53C182 46 199 48 197 56C195 65 170 73 148 86C116 104 97 124 83 144C76 153 72 151 74 141Z" fill="url(#glass-light)"/>
+    <path d="M66 155C66 151 69 146 72 147C75 149 72 155 70 160C68 163 65 160 66 155Z" fill="#f8f3e6"/>
+    <path d="M305 57C356 88 390 150 393 205" fill="none" stroke="#deeffd" stroke-opacity=".72" stroke-width="6" stroke-linecap="round"/>
+    <ellipse cx="220" cy="215" rx="196" ry="17" fill="#6a9de0" fill-opacity=".57"/>
+    <path d="M30 217Q220 190 410 217" fill="none" stroke="#e1effc" stroke-opacity=".7" stroke-width="3" stroke-linecap="round"/>
+  </g>
+  <path d="M19 220C19 99 104 6 220 6S421 99 421 220" fill="none" stroke="#10264f" stroke-width="4" stroke-linecap="round"/>
+  <path d="M19 255C29 355 114 433 220 433S411 355 421 255Z" fill="url(#cup)" stroke="#10264f" stroke-width="4" stroke-linejoin="round"/>
+  <path d="M32 270C60 310 110 350 179 365C262 384 340 351 383 300C363 376 300 423 224 426C123 428 57 361 32 270Z" fill="#ce383e" fill-opacity=".64"/>
+  <path d="M47 270C65 321 96 352 135 374C98 364 65 343 48 315C39 301 34 286 31 270Z" fill="#ff9b83" fill-opacity=".61"/>
+  <path d="M22 219Q220 235 418 219C424 219 427 224 428 231V251C428 256 424 261 417 262Q220 278 23 262C16 261 12 256 12 251V231C13 224 16 219 22 219Z" fill="url(#seam)" stroke="#10264f" stroke-width="4" stroke-linejoin="round"/>
+  <path d="M21 227Q220 243 418 227" fill="none" stroke="#ffd7bd" stroke-width="4" stroke-linecap="round"/>
+  <path d="M47 237Q76 240 105 242L113 242Q106 249 108 255Q78 254 53 251Q46 249 47 237Z" fill="#ffded0"/>
+  <path d="M115 242Q172 246 222 246" fill="none" stroke="#ffada1" stroke-width="3" stroke-linecap="round"/>
+</svg>

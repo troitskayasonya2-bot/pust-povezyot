@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Автомат · Пусть повезёт</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="../raffle-light-v14/styles.css">
+  <link rel="stylesheet" href="capsule.css">
+  <script src="capsule.js" type="module"></script>
+</head>
+<body>
+  <div class="screen capsule-screen">
+    <div class="vending-rays" aria-hidden="true"><span></span><span></span></div>
+    <header class="header">
+      <img class="partners" src="assets/partners.svg" alt="Авиасейлс × modi" width="257" height="35">
+      <img class="wordmark" src="../raffle-light-v14/assets/wordmark.svg" alt="Пусть повезёт" width="170" height="65">
+    </header>
+    <main class="capsule-stage" data-phase="loading" aria-busy="true">
+      <form class="capsule-form" action="./" method="get">
+        <input type="hidden" name="view" value="prediction">
+        <input type="hidden" name="state" value="open" disabled>
+        <input type="hidden" name="prize" disabled>
+        <div class="vending-controls">
+          <p class="vending-status" role="status"></p>
+          <button class="arcade-button vending-trigger" type="button" disabled>Крутить</button>
+        </div>
+        <div class="vending-frame">
+          <div class="vending-machine">
+            <div class="vending-art"></div>
+            <button class="vending-dial" type="button" aria-label="Повернуть ручку автомата" disabled></button>
+            <div class="vending-outlet" hidden aria-hidden="true"><img src="assets/closed-capsule.svg" width="440" height="440" alt=""></div>
+          </div>
+        </div>
+        <button class="capsule-action" type="submit" aria-label="Открыть капсулу" hidden disabled>
+          <span class="capsule-roll">
+            <img class="capsule-art" src="assets/closed-capsule.svg" alt="" width="440" height="440" fetchpriority="high">
+            <span class="capsule-shell capsule-shell-top"></span>
+            <span class="capsule-shell capsule-shell-bottom"></span>
+          </span>
+          <span class="capsule-label" aria-hidden="true">Открыть капсулу</span>
+        </button>
+      </form>
+      <noscript>Чтобы запустить автомат, включи JavaScript.</noscript>
+    </main>
+    <footer class="footer">
+      <a href="./"><span aria-hidden="true">←</span> На главную</a>
+    </footer>
+  </div>
+</body>
+</html>

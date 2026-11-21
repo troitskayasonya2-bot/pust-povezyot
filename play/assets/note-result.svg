@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="578" height="612" viewBox="0 0 578 612">
+  <defs>
+    <linearGradient id="reward-glass" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#cde9ff" stop-opacity=".91"/>
+      <stop offset=".52" stop-color="#74b6f4" stop-opacity=".77"/>
+      <stop offset="1" stop-color="#457aca" stop-opacity=".9"/>
+    </linearGradient>
+    <linearGradient id="reward-glass-rim" x2="0" y2="1">
+      <stop stop-color="#578dd4"/>
+      <stop offset=".48" stop-color="#7eb6f0"/>
+      <stop offset="1" stop-color="#c2e5ff"/>
+    </linearGradient>
+    <linearGradient id="reward-bowl" x2="0" y2="1">
+      <stop stop-color="#ff9b83"/>
+      <stop offset=".45" stop-color="#f95351"/>
+      <stop offset="1" stop-color="#c3323c"/>
+    </linearGradient>
+    <linearGradient id="reward-mouth" x1="0" y1="0" x2="0" y2="1">
+      <stop stop-color="#8d2737"/>
+      <stop offset="1" stop-color="#c13e42"/>
+    </linearGradient>
+    <linearGradient id="reward-paper" x2="0" y2="1">
+      <stop stop-color="#fff4dd"/>
+      <stop offset=".58" stop-color="#ffedce"/>
+      <stop offset="1" stop-color="#eabd8e"/>
+    </linearGradient>
+    <clipPath id="reward-prize-visible">
+      <path d="M0 0H578V349H542C513 396 414 429 290 429S66 396 38 349H0Z"/>
+    </clipPath>
+  </defs>
+  <g transform="translate(208 167) rotate(-17)">
+    <path d="M-197 43C-183-53-106-131 0-131S183-53 197 43Q195 98 0 98Q-195 98-197 43Z" fill="url(#reward-glass)" stroke="#10264f" stroke-width="4.5"/>
+    <path d="M-185 34C-164-50-85-119 2-121C-65-106-120-58-145-4C-156 20-178 31-185 34Z" fill="#c9e9ff" opacity=".7"/>
+    <path d="M-158 8C-146-35-95-86-46-98C-16-105-6-91-37-85C-78-77-115-40-137-9C-151 9-161 15-158 8Z" fill="#fff0d6"/>
+    <path d="M36-113C110-95 165-41 181 27" fill="none" stroke="#b4dbf8" stroke-width="5" stroke-linecap="round" opacity=".67"/>
+    <ellipse cx="0" cy="49" rx="196" ry="47" fill="url(#reward-glass-rim)" stroke="#10264f" stroke-width="4.5"/>
+    <ellipse cx="0" cy="49" rx="181" ry="33" fill="#659dde"/>
+    <path d="M-188 57C-180 33-95 18 0 18S178 35 188 57" fill="none" stroke="#fff1d6" stroke-width="4" stroke-linecap="round"/>
+    <path d="M-166 64Q0 112 166 64" fill="none" stroke="#bde3ff" stroke-width="4" opacity=".55"/>
+  </g>
+  <path d="M37 348C36 482 137 571 290 577C443 571 544 482 543 348Z" fill="url(#reward-bowl)" stroke="#10264f" stroke-width="4.5" stroke-linejoin="round"/>
+  <path d="M69 414C133 512 249 543 367 518C434 504 484 480 517 443C481 516 398 567 291 570C186 566 102 519 69 414Z" fill="#bb303b" opacity=".51"/>
+  <path d="M64 414C83 463 124 497 171 518C134 492 106 451 101 429Z" fill="#ff9a81" opacity=".61"/>
+  <ellipse cx="290" cy="348" rx="253" ry="91" fill="#ff9481" stroke="#10264f" stroke-width="4.5"/>
+  <ellipse cx="290" cy="352" rx="235" ry="76" fill="url(#reward-mouth)"/>
+  <path d="M69 363C122 408 225 421 291 421S453 408 511 363C483 409 386 428 290 428C189 428 107 411 69 363Z" fill="#ea5653" opacity=".63"/>
+  <g id="reward-prize-layer" clip-path="url(#reward-prize-visible)">
+    <g id="capsule-prize" transform="translate(285 326) rotate(-12)">
+      <path d="M-111-115L95-127Q102-126 104-119L118 94L-100 110Z" fill="#bd9673" stroke="#10264f" stroke-width="4" stroke-linejoin="round"/>
+      <path d="M-104-119L97-128Q104-129 105-120L116 85Q111 94 101 95L-99 105Z" fill="url(#reward-paper)" stroke="#10264f" stroke-width="4" stroke-linejoin="round"/>
+      <path d="M-101 15Q-5 26 111 12L114 76Q115 88 104 90L-97 101Z" fill="#e4b17e" opacity=".47"/>
+      <path d="M-90-109L62-116" fill="none" stroke="#fff9ea" stroke-width="5" stroke-linecap="round"/>
+      <path d="M-69-64H63M-69-36H24" stroke="#10264f" stroke-width="6" stroke-linecap="round"/>
+      <path d="M77-126L79-103L106-105" fill="#edcaa1" stroke="#b88f68" stroke-width="1.6" stroke-linejoin="round"/>
+    </g>
+  </g>
+  <path d="M38 349C66 396 166 429 290 429S513 396 542 349L540 374C493 427 396 449 290 449C184 449 87 427 40 374Z" fill="#f96c60" stroke="#10264f" stroke-width="4.5" stroke-linejoin="round"/>
+  <path d="M50 364C98 416 205 439 290 439S482 416 530 364" fill="none" stroke="#ffc3a5" stroke-width="5.5" stroke-linecap="round"/>
+  <path d="M91 402C118 417 158 429 190 433" fill="none" stroke="#fff0d5" stroke-width="5" stroke-linecap="round"/>
+</svg>

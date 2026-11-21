@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Розыгрыш закончен · Пусть повезёт</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="styles.css">
+  <script src="preview.js" defer></script>
+</head>
+<body class="raffle-page">
+  <div class="screen">
+    <svg class="reflection" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+      <defs>
+        <linearGradient id="reflection-fade">
+          <stop stop-color="#effaff" stop-opacity=".27"/>
+          <stop offset=".42" stop-color="#effaff" stop-opacity=".17"/>
+          <stop offset="1" stop-color="#effaff" stop-opacity="0"/>
+        </linearGradient>
+      </defs>
+      <path d="M0 128 1240 445V490L0 177ZM0 241 1240 563V621L0 301Z" fill="url(#reflection-fade)"/>
+    </svg>
+    <header class="header">
+      <img class="partners" src="../play/assets/partners.svg" alt="Авиасейлс × modi" width="257" height="35">
+      <img class="wordmark" src="assets/wordmark.svg" alt="Пусть повезёт" width="170" height="65">
+    </header>
+    <main class="content" aria-labelledby="raffle-title">
+      <h1 id="raffle-title">Розыгрыш <span id="title-end">закончен</span></h1>
+      <p class="intro" id="intro" hidden>Разыгрываем путешествие от&nbsp;Авиасейлс<br class="desktop-break"> и&nbsp;подарочные карты modi.</p>
+      <section class="winners" id="winners" aria-labelledby="winners-title">
+        <h2 id="winners-title">Победителями стали</h2>
+        <ul class="winner-list">
+          <li class="winner-email">a•••@example.com</li>
+          <li class="winner-email">m•••@example.com</li>
+        </ul>
+      </section>
+      <form class="ticket" id="entry" aria-label="Заявка на участие" hidden>
+        <label for="email">Электронная почта</label>
+        <div class="form-row">
+          <input id="email" type="email" placeholder="you@example.com" required autocomplete="email" aria-describedby="entry-helper">
+          <button class="arcade-button" type="submit">Участвовать</button>
+        </div>
+        <p id="entry-helper" class="helper" aria-live="polite">Демо-форма. Почта никуда не отправляется.</p>
+      </form>
+      <a id="restart" class="arcade-button restart" href="../play/capsule.html">Запустить автомат</a>
+    </main>
+    <footer class="footer">
+      <a href="../play/"><span aria-hidden="true">←</span> На главную</a>
+    </footer>
+  </div>
+</body>
+</html>
