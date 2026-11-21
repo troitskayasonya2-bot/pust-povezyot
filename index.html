@@ -8,7 +8,7 @@
   <title>Пусть повезёт</title>
   <link rel="icon" href="data:,">
   <link rel="stylesheet" href="../raffle-light-v14/styles.css?v=3">
-  <link rel="stylesheet" href="game.css?v=2">
+  <link rel="stylesheet" href="game.css?v=4">
   <link rel="modulepreload" href="outcomes.js?v=3">
   <script>
     if (new URLSearchParams(location.search).get('view') !== 'prediction') {
@@ -33,11 +33,13 @@
         </div>
         <div class="desktop-start-copy">
           <img class="desktop-brand" src="assets/partners.svg" loading="lazy" alt="Авиасейлс × modi" width="257" height="35">
-          <img class="desktop-interface" data-src="assets/desktop-start-ui.svg" alt="" width="1366" height="900" fetchpriority="high">
-          <h1 class="sr-only">Пусть повезёт</h1>
-          <p class="sr-only">Запускай автомат из детства, получай предсказания и участвуй в розыгрыше путешествия от Авиасейлс и подарков от modi.</p>
-          <a class="hotspot launch" data-action="launch" href="capsule.html"><span class="sr-only">Запустить автомат</span></a>
-          <a class="hotspot prizes" data-action="prizes" href="../raffle-light-v14/?from=game"><span class="sr-only">Что можно выиграть</span></a>
+          <div class="desktop-start-content">
+            <img class="desktop-interface" data-src="assets/desktop-start-ui.svg" alt="" width="1366" height="900" fetchpriority="high">
+            <h1 class="sr-only">Пусть повезёт</h1>
+            <p class="sr-only">Запускай автомат из детства, получай предсказания и участвуй в розыгрыше путешествия от Авиасейлс и подарков от modi.</p>
+            <a class="hotspot launch" data-action="launch" href="capsule.html"><span class="sr-only">Запустить автомат</span></a>
+            <a class="hotspot prizes" data-action="prizes" href="../raffle-light-v14/?from=game"><span class="sr-only">Что можно выиграть</span></a>
+          </div>
         </div>
       </div>
       <div class="compact">

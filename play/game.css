@@ -78,6 +78,13 @@
   aspect-ratio: 1366 / 900;
 }
 
+.desktop-start-content {
+  position: absolute;
+  inset: 0;
+  /* The artwork starts at x=136 and the logo ink starts at x=33.8 on the same grid. */
+  translate: -7.4817%;
+}
+
 .desktop-brand {
   position: absolute;
   top: 2.333333%;
@@ -237,6 +244,7 @@
 .compact-title {
   width: min(100%, 455px);
   margin: 0;
+  margin-inline-end: auto;
 }
 
 .compact-title img {
@@ -247,10 +255,11 @@
 
 .compact-intro {
   margin: 0;
+  margin-inline-end: auto;
   max-width: 32em;
   font-size: clamp(16px, 4vw, 20px);
   line-height: 1.42;
-  text-align: center;
+  text-align: left;
   text-wrap: pretty;
 }
 
@@ -263,14 +272,15 @@
 .compact-start-actions {
   display: grid;
   gap: 4px;
-  justify-items: center;
+  justify-items: start;
+  margin-inline-end: auto;
 }
 
 .game-link {
   display: inline-grid;
   min-height: 44px;
   align-items: center;
-  padding: 6px 10px;
+  padding-block: 6px;
   color: var(--ink);
   text-underline-offset: 4px;
 }
@@ -397,10 +407,9 @@
 
   .compact-header { grid-area: brand; margin: 0; }
   .compact-title { grid-area: title; }
-  .compact-intro { grid-area: intro; text-align: left; font-size: clamp(16px, 1.9vw, 20px); }
-  .compact-start-actions { grid-area: actions; justify-items: start; }
+  .compact-intro { grid-area: intro; font-size: clamp(16px, 1.9vw, 20px); }
+  .compact-start-actions { grid-area: actions; }
   .compact-start-actions .arcade-button { justify-self: start; min-width: 0; padding-inline: 22px; font-size: clamp(17px, 2.2vw, 20px); }
-  .compact-start-actions .game-link { padding-inline: 0; }
 
   .compact-machine {
     --machine-height: min(560px, calc(100svh - 74px));
