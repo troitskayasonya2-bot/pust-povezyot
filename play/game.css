@@ -73,7 +73,7 @@
   --frame-inset: max(0px, (100vw - max(1920px, min(100vw, 177.777778svh))) / 2);
   position: absolute;
   top: 0;
-  left: calc(var(--frame-inset) + max(16px, min(.833333vw, 1.481481svh)));
+  left: calc(var(--frame-inset) + max(16px, min(.833333vw, 1.481481svh)) + clamp(14px, 1.4vw, 26px));
   width: min(100%, max(1229.4px, 151.777778svh), var(--ui-max));
   aspect-ratio: 1366 / 900;
 }
@@ -274,6 +274,10 @@
   gap: 4px;
   justify-items: start;
   margin-inline-end: auto;
+}
+
+#start .compact > :is(.compact-header, .compact-title, .compact-intro, .compact-start-actions) {
+  translate: 6px;
 }
 
 .game-link {
