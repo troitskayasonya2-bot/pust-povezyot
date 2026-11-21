@@ -4,6 +4,7 @@ const stage = document.querySelector('.capsule-stage');
 const screen = stage.closest('.capsule-screen');
 const form = stage.querySelector('.capsule-form');
 const status = stage.querySelector('.vending-status');
+const frame = stage.querySelector('.vending-frame');
 const machine = stage.querySelector('.vending-machine');
 const machineArt = stage.querySelector('.vending-art');
 const dial = stage.querySelector('.vending-dial');
@@ -32,8 +33,9 @@ if (query.get('state') === 'open') {
 
 const announcements = {
   ready: '',
+  centering: 'Автомат запускается',
   turning: 'Автомат запущен',
-  dispensing: 'Капсула выпала',
+  dispensing: 'Капсула появляется в лотке',
   presenting: 'Капсула выкатывается',
   available: 'Капсула готова. Открой её.',
   opening: 'Капсула открывается',
@@ -46,7 +48,7 @@ function setPhase(phase) {
   dial.disabled = phase !== 'ready';
   trigger.disabled = phase !== 'ready';
   action.disabled = phase !== 'available';
-  trigger.textContent = phase === 'error' ? 'Автомат не загрузился' : phase === 'ready' ? 'Крутить' : 'Крутим…';
+  trigger.textContent = phase === 'error' ? 'Автомат не загрузился' : 'Крутить';
 }
 
 async function animate(element, frames, options) {
@@ -54,33 +56,52 @@ async function animate(element, frames, options) {
   await element.animate(frames, options).finished.catch(() => {});
 }
 
-function shakeStock(element, index, duration) {
-  const direction = index % 2 === 0 ? 1 : -1;
-  const height = 9 + (index % 4) * 5;
-  const offset = index % 3 * .055;
+async function centerMachine() {
+  if (replay) return;
+  setPhase('centering');
+  const from = frame.getBoundingClientRect();
+  await animate(trigger, [
+    { opacity: 1, scale: 1 },
+    { opacity: 1, scale: .98, offset: .35 },
+    { opacity: 0, scale: .95 },
+  ], { duration: 205, easing: 'ease-out', fill: 'forwards' });
 
-  return animate(element, [
+  stage.dataset.centered = '';
+  const to = frame.getBoundingClientRect();
+  await animate(frame, [
+    { transform: `translate(${from.left - to.left}px, ${from.top - to.top}px)` },
     { transform: 'none' },
-    { transform: `translate(${10 * direction}px, ${-height}px) rotate(${12 * direction}deg)`, offset: .08 + offset },
-    { transform: `translate(${-8 * direction}px, 6px) rotate(${-7 * direction}deg)`, offset: .24 + offset },
-    { transform: `translate(${3 * direction}px, ${-height * .43}px) rotate(${4 * direction}deg)`, offset: .36 + offset },
-    { transform: `translate(${-6 * direction}px, ${-height * .54}px) rotate(${-8 * direction}deg)`, offset: .59 + offset },
-    { transform: `translate(${4 * direction}px, ${-height * .30}px) rotate(${5 * direction}deg)`, offset: .78 + offset },
-    { transform: 'none' },
-  ], { duration });
+  ], { duration: 545, easing: 'cubic-bezier(.22,1,.36,1)' });
+}
+
+const shakeDuration = 4100;
+const shakeBeats = [
+  [0, 0, 0], [.045, 4, .8], [.09, -7, -1.8], [.14, 7, 1.7],
+  [.185, -5, -1.2], [.235, 3, .7], [.28, 0, 0], [.35, 0, 0],
+  [.39, -4, -1.1], [.435, 8, 2], [.48, -9, -2.2], [.53, 7, 1.85],
+  [.575, -5, -1.35], [.62, 4, 1], [.67, 0, 0], [.73, 0, 0],
+  [.77, 3, .75], [.81, -5, -1.3], [.85, 5, 1.2], [.895, -3, -.7],
+  [.94, 2, .4], [1, 0, 0],
+];
+
+function shakeStock(element, index) {
+  const direction = index % 2 === 0 ? 1 : -1;
+  const height = 10 + (index % 4) * 4;
+  const delay = (index % 3) * .008;
+
+  return animate(element, shakeBeats.map(([offset, x]) => {
+    const y = x * direction > 0 ? -height : 4;
+    return {
+      offset: offset === 0 || offset === 1 ? offset : offset + delay,
+      transform: `translate(${x * direction * 1.1}px, ${Math.abs(x) * y / 9}px) rotate(${x * direction * 1.25}deg)`,
+    };
+  }), { duration: shakeDuration });
 }
 
 async function vend(start = 0, direction = 1) {
   if (stage.dataset.phase !== 'ready') return;
   gesture = null;
   const keyboard = dial.matches(':focus-visible') || trigger.matches(':focus-visible');
-  const shakeDuration = 1450;
-  screen.style.setProperty('--shake-time', `${shakeDuration}ms`);
-  setPhase('turning');
-  if (motion.matches && navigator.userActivation?.hasBeenActive !== false) {
-    navigator.vibrate?.([55, 100, 80, 115, 75, 125, 90, 120, 70, 145, 55, 125, 75, 95, 80]);
-  }
-
   pendingDraw = drawOutcome(query.get('after'));
   const { outcome } = pendingDraw;
   form.elements.prize.value = outcome.id;
@@ -88,38 +109,34 @@ async function vend(start = 0, direction = 1) {
   rewardPreview.src = outcome.art;
   rewardPreview.decode().catch(() => {});
 
+  await centerMachine();
+  screen.style.setProperty('--shake-time', `${shakeDuration}ms`);
+  setPhase('turning');
+  if (motion.matches && navigator.userActivation?.hasBeenActive !== false) {
+    navigator.vibrate?.([45, 130, 70, 130, 75, 150, 55, 260, 50, 130, 90, 115, 80, 115, 65, 430, 45, 140, 65, 140, 45]);
+  }
+
   await Promise.all([
     animate(knob, [
       { transform: `rotate(${start}deg)` },
       { transform: `rotate(${direction * 360}deg)` },
     ], { duration: 680, easing: 'cubic-bezier(.2,.66,.36,1)' }),
-    animate(machine, [
-      { transform: 'none' },
-      { transform: 'translateX(7px) rotate(2deg)', offset: .06 },
-      { transform: 'translateX(-8px) rotate(-2.25deg)', offset: .14 },
-      { transform: 'translateX(6px) rotate(1.5deg)', offset: .22 },
-      { transform: 'translateX(-4px) rotate(-1.05deg)', offset: .30 },
-      { transform: 'translateX(3px) rotate(.7deg)', offset: .39 },
-      { transform: 'translateX(-5px) rotate(-1.15deg)', offset: .48 },
-      { transform: 'translateX(5px) rotate(1.3deg)', offset: .57 },
-      { transform: 'translateX(-5px) rotate(-1.25deg)', offset: .66 },
-      { transform: 'translateX(3px) rotate(.7deg)', offset: .76 },
-      { transform: 'translateX(-2px) rotate(-.45deg)', offset: .88 },
-      { transform: 'none' },
-    ], { duration: shakeDuration }),
-    ...stock.map((element, index) => shakeStock(element, index, shakeDuration)),
+    animate(machine, shakeBeats.map(([offset, x, tilt]) => ({
+      offset, transform: `translateX(${x}px) rotate(${tilt}deg)`,
+    })), { duration: shakeDuration }),
+    ...stock.map(shakeStock),
   ]);
   knob.style.removeProperty('--turn');
 
   setPhase('dispensing');
   outlet.hidden = false;
-  const dropOptions = { duration: 520, fill: 'forwards' };
-  const peek = 'translateY(-72%) rotate(-12deg)';
+  const dropOptions = { duration: 1450, fill: 'forwards' };
   await Promise.all([
     animate(outletBall, [
       { transform: 'translateY(-105%) rotate(-16deg)', easing: 'ease-out' },
-      { transform: peek, offset: .29 },
-      { transform: peek, offset: .57, easing: 'cubic-bezier(.48,.04,.86,.54)' },
+      { transform: 'translateY(-68%) rotate(-12deg)', offset: .31 },
+      { transform: 'translateY(-71%) rotate(-13deg)', offset: .52 },
+      { transform: 'translateY(-66%) rotate(-11deg)', offset: .74, easing: 'cubic-bezier(.48,.04,.86,.54)' },
       { transform: 'translateY(14%) rotate(-8deg)' },
     ], dropOptions),
     animate(machine, [
@@ -142,7 +159,7 @@ async function vend(start = 0, direction = 1) {
     { transform: `translate(${dx}px,${dy}px) scale(${scale}) rotate(-8deg)` },
     { transform: `translate(${dx * .23}px,${dy * .22 - 18}px) scale(.86) rotate(5deg)`, offset: .67 },
     { transform: 'translate(0,0) scale(1) rotate(0)' },
-  ], { duration: 370, easing: 'cubic-bezier(.24,.64,.34,1)' });
+  ], { duration: 780, easing: 'cubic-bezier(.24,.64,.34,1)' });
 
   setPhase('available');
   if (keyboard) action.focus({ preventScroll: true });

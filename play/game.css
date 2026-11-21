@@ -165,8 +165,18 @@
   transform: translate(-50%, -50%);
 }
 
-.hotspot:hover { background: rgb(16 38 79 / .06); }
-.hotspot:active { background: rgb(16 38 79 / .13); }
+.hotspot-art {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: auto;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+.hotspot:hover .hotspot-art { filter: brightness(.98); }
+.hotspot:is(:active, [data-pressed]) .hotspot-art { filter: brightness(.94); }
 
 .hotspot.launch {
   --action-x: 24.89019%;
@@ -176,6 +186,7 @@
 }
 
 .hotspot.prizes {
+  --press-travel: 2px;
   --action-x: 16.80088%;
   --action-y: 80.333333%;
   --action-width: 13.98243%;
@@ -184,7 +195,7 @@
 }
 
 .hotspot.to-raffle {
-  --action-x: 63.611111%;
+  --action-x: 63.541667%;
   --action-y: 72.5%;
   --action-width: 24.027778%;
   --action-height: 9%;
@@ -441,6 +452,9 @@
 }
 
 @media (prefers-reduced-motion: no-preference) {
+  .hotspot-art { transition: translate 85ms ease-out, filter 85ms ease-out; }
+  .hotspot:is(:active, [data-pressed]) .hotspot-art { translate: 0 var(--press-travel, 4px); }
+
   #prediction :is(.compact-ring, .desktop-ring) { animation: reveal 300ms ease-out both; }
   #prediction .paper,
   #prediction .compact-result-actions { animation: reveal 300ms 70ms ease-out both; }

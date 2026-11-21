@@ -146,12 +146,31 @@ input::placeholder { color: #52667f; opacity: 1; }
   text-decoration: none;
 }
 .arcade-button:hover { background: #e83d48; }
-.arcade-button:active { box-shadow: 0 2px 0 var(--ink); transform: translateY(3px); }
+.arcade-button:is(:enabled:active, a:active, [data-pressed]) {
+  box-shadow: 0 2px 0 var(--ink);
+  translate: 0 3px;
+  filter: brightness(.97);
+}
+
+:is(.game-link, .footer a):is(:active, [data-pressed]) {
+  translate: 0 2px;
+  opacity: .76;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  :is(.arcade-button, .game-link, .footer a) {
+    transition: translate 85ms ease-out, box-shadow 85ms ease-out, opacity 85ms ease-out, filter 85ms ease-out;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :is(.arcade-button, .game-link, .footer a):is(:active, [data-pressed]) { translate: none; }
+}
 :where(button, input, a):focus-visible { outline: 2px solid var(--ink); outline-offset: 4px; }
 .helper { margin: 13px 0 0; font-size: 14px; line-height: 1.4; }
 .restart { margin-top: 32px; min-width: 280px; }
 .footer { padding: 0 var(--edge-right) max(39px, env(safe-area-inset-bottom)) var(--edge-left); font-size: 17px; line-height: 1.4; }
-.footer a { position: relative; color: var(--ink); text-underline-offset: 4px; }
+.footer a { position: relative; display: inline-block; color: var(--ink); text-underline-offset: 4px; }
 .footer a::after { position: absolute; inset: -12px -5px; content: ''; }
 @media (max-width: 740px) {
   h1 { -webkit-text-stroke-width: 2px; text-shadow: 0 3px 0 var(--ink), 0 4px 0 var(--ink); }

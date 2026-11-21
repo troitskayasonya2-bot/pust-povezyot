@@ -50,16 +50,16 @@
   width: 100%;
 }
 
-.capsule-stage[data-replay] .capsule-form {
+.capsule-stage:is([data-replay], [data-centered]) .capsule-form {
   grid-template-columns: minmax(0, 1fr);
   gap: 0;
 }
 
-.capsule-stage[data-replay] .vending-controls {
+.capsule-stage:is([data-replay], [data-centered]) .vending-controls {
   display: contents;
 }
 
-.capsule-stage[data-replay] .vending-trigger {
+.capsule-stage:is([data-replay], [data-centered]) .vending-trigger {
   display: none;
 }
 
@@ -162,6 +162,10 @@
   cursor: default;
 }
 
+.vending-machine:has(.vending-dial:is(:enabled:active, [data-pressed])) #vending-knob {
+  filter: brightness(.92);
+}
+
 #vending-knob {
   transform-box: view-box;
   transform-origin: 50% 66.3889%;
@@ -248,6 +252,11 @@
 }
 
 @media (prefers-reduced-motion: no-preference) {
+  #vending-knob { transition: scale 85ms ease-out, filter 85ms ease-out; }
+  .vending-machine:has(.vending-dial:is(:enabled:active, [data-pressed])) #vending-knob { scale: .95; }
+  .capsule-roll { transition: scale 85ms ease-out, translate 85ms ease-out; }
+  .capsule-action:is(:enabled:active, [data-pressed]) .capsule-roll { scale: .96; translate: 0 3px; }
+
   .vending-frame,
   .capsule-screen::before,
   .capsule-action::before {
@@ -282,6 +291,8 @@
 .capsule-action:enabled:hover .capsule-art {
   filter: brightness(1.07);
 }
+
+.capsule-action:is(:enabled:active, [data-pressed]) .capsule-roll { filter: brightness(.96); }
 
 .capsule-roll,
 .capsule-art,

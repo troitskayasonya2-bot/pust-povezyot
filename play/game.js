@@ -31,7 +31,7 @@ if (isPrediction) {
     link.href = target.href;
   }
   if (outcome.id !== 'ring') {
-    vectorInterface.dataset.src = 'assets/desktop-result-frame.svg';
+    vectorInterface.dataset.src = 'assets/desktop-result-frame.svg?v=6';
     desktop.querySelector('.desktop-outcome').classList.remove('sr-only');
   }
 
