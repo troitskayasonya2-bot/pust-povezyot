@@ -74,25 +74,37 @@ async function centerMachine() {
   ], { duration: 545, easing: 'cubic-bezier(.22,1,.36,1)' });
 }
 
-const shakeDuration = 4100;
+// Each pair is the time and horizontal displacement at a turning point.
 const shakeBeats = [
-  [0, 0, 0], [.045, 4, .8], [.09, -7, -1.8], [.14, 7, 1.7],
-  [.185, -5, -1.2], [.235, 3, .7], [.28, 0, 0], [.35, 0, 0],
-  [.39, -4, -1.1], [.435, 8, 2], [.48, -9, -2.2], [.53, 7, 1.85],
-  [.575, -5, -1.35], [.62, 4, 1], [.67, 0, 0], [.73, 0, 0],
-  [.77, 3, .75], [.81, -5, -1.3], [.85, 5, 1.2], [.895, -3, -.7],
-  [.94, 2, .4], [1, 0, 0],
+  [0, 0], [330, 2.2], [635, -3], [915, 3.8], [1165, -4.4],
+  [1385, 5], [1575, -5.8], [1740, 6.5], [1880, -7.1],
+  [2000, 7.8], [2105, -8.2], [2197, 8.4], [2281, -8.6],
+  [2363, 8.4], [2451, -8.3], [2547, 8], [2655, -7.5],
+  [2780, 7], [2925, -6.2], [3095, 5.5], [3300, -4.6],
+  [3540, 3.6], [3815, -2.2], [4115, 0],
 ];
+const shakeDuration = shakeBeats.at(-1)[0];
+const shakeVibration = shakeBeats.slice(0, -1).flatMap(([time, x], index) => {
+  const pulse = Math.round(18 + Math.abs(x) * 3.7);
+  return [pulse, shakeBeats[index + 1][0] - time - pulse];
+});
+
+function vibrate(pattern) {
+  if (motion.matches && !document.hidden && navigator.userActivation?.hasBeenActive !== false) {
+    navigator.vibrate?.(pattern);
+  }
+}
 
 function shakeStock(element, index) {
   const direction = index % 2 === 0 ? 1 : -1;
   const height = 10 + (index % 4) * 4;
-  const delay = (index % 3) * .008;
+  const delay = (index % 3) * 16;
 
-  return animate(element, shakeBeats.map(([offset, x]) => {
+  return animate(element, shakeBeats.map(([time, x]) => {
     const y = x * direction > 0 ? -height : 4;
     return {
-      offset: offset === 0 || offset === 1 ? offset : offset + delay,
+      offset: (time === 0 || time === shakeDuration ? time : time + delay) / shakeDuration,
+      easing: 'ease-in-out',
       transform: `translate(${x * direction * 1.1}px, ${Math.abs(x) * y / 9}px) rotate(${x * direction * 1.25}deg)`,
     };
   }), { duration: shakeDuration });
@@ -112,17 +124,17 @@ async function vend(start = 0, direction = 1) {
   await centerMachine();
   screen.style.setProperty('--shake-time', `${shakeDuration}ms`);
   setPhase('turning');
-  if (motion.matches && navigator.userActivation?.hasBeenActive !== false) {
-    navigator.vibrate?.([45, 130, 70, 130, 75, 150, 55, 260, 50, 130, 90, 115, 80, 115, 65, 430, 45, 140, 65, 140, 45]);
-  }
+  vibrate(shakeVibration);
 
   await Promise.all([
     animate(knob, [
       { transform: `rotate(${start}deg)` },
       { transform: `rotate(${direction * 360}deg)` },
     ], { duration: 680, easing: 'cubic-bezier(.2,.66,.36,1)' }),
-    animate(machine, shakeBeats.map(([offset, x, tilt]) => ({
-      offset, transform: `translateX(${x}px) rotate(${tilt}deg)`,
+    animate(machine, shakeBeats.map(([time, x]) => ({
+      offset: time / shakeDuration,
+      easing: 'ease-in-out',
+      transform: `translateX(${x}px) rotate(${x * .245}deg)`,
     })), { duration: shakeDuration }),
     ...stock.map(shakeStock),
   ]);
@@ -154,6 +166,7 @@ async function vend(start = 0, direction = 1) {
   outlet.hidden = true;
   stage.dataset.reveal = '';
   setPhase('presenting');
+  vibrate(48);
 
   await animate(ball, [
     { transform: `translate(${dx}px,${dy}px) scale(${scale}) rotate(-8deg)` },
@@ -245,7 +258,7 @@ window.addEventListener('pageshow', event => {
 });
 
 window.addEventListener('pagehide', () => {
-  if (stage.dataset.phase === 'turning') navigator.vibrate?.(0);
+  if (stage.matches('[data-phase="turning"], [data-phase="presenting"]')) navigator.vibrate?.(0);
 });
 
 async function loadMachine() {
