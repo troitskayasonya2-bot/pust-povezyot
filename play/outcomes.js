@@ -1,6 +1,7 @@
 const outcomes = {
   ring: {
     id: 'ring',
+    capsule: 'assets/closed-capsule.svg',
     art: 'assets/ring.svg?v=3',
     alt: 'Кольцо с красным камнем в открытой капсуле',
     title: 'Тебе сделают предложение.',
@@ -8,6 +9,7 @@ const outcomes = {
   },
   bounce: {
     id: 'bounce',
+    capsule: 'assets/closed-capsule-bounce.svg',
     art: 'assets/bounce-result.svg?v=2',
     shell: 'assets/bounce-shell.svg',
     alt: 'Разноцветный попрыгунчик в открытой капсуле',
@@ -16,6 +18,7 @@ const outcomes = {
   },
   note: {
     id: 'note',
+    capsule: 'assets/closed-capsule-note.svg',
     art: 'assets/note-result.svg?v=2',
     shell: 'assets/note-shell.svg',
     alt: 'Сложенная бумажка в открытой капсуле',
@@ -37,10 +40,7 @@ export function drawOutcome(after) {
   try {
     saved = JSON.parse(sessionStorage.getItem(storageKey));
   } catch {
-    if (previous) {
-      const next = outcomeIds[(outcomeIds.indexOf(previous) + 1) % outcomeIds.length];
-      return { outcome: getOutcome(next) };
-    }
+    // Keep drawing randomly even when session storage is unavailable.
   }
 
   const remaining = Array.isArray(saved?.remaining)

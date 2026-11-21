@@ -1,4 +1,4 @@
-import { drawOutcome, saveOutcome } from './outcomes.js?v=3';
+import { drawOutcome, saveOutcome } from './outcomes.js?v=9';
 
 const stage = document.querySelector('.capsule-stage');
 const screen = stage.closest('.capsule-screen');
@@ -118,6 +118,9 @@ async function vend(start = 0, direction = 1) {
   const { outcome } = pendingDraw;
   form.elements.prize.value = outcome.id;
   form.elements.prize.disabled = false;
+  outletBall.src = picture.src = outcome.capsule;
+  action.style.setProperty('--dispensed-capsule', `url("${outcome.capsule}")`);
+  const capsuleReady = picture.decode().then(() => true, () => false);
   rewardPreview.src = outcome.art;
   rewardPreview.decode().catch(() => {});
 
@@ -140,6 +143,11 @@ async function vend(start = 0, direction = 1) {
   ]);
   knob.style.removeProperty('--turn');
 
+  if (!await capsuleReady) {
+    setPhase('error');
+    status.textContent = 'Капсула не загрузилась. Обнови страницу.';
+    return;
+  }
   setPhase('dispensing');
   outlet.hidden = false;
   const dropOptions = { duration: 1450, fill: 'forwards' };

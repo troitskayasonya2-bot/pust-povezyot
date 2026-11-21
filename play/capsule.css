@@ -63,7 +63,7 @@
   display: none;
 }
 
-.capsule-stage[data-replay][data-phase="error"] .vending-status {
+.capsule-stage:is([data-replay], [data-centered])[data-phase="error"] .vending-status {
   position: static;
   width: auto;
   height: auto;
@@ -307,7 +307,7 @@
 
 .capsule-shell {
   display: none;
-  background: url(assets/closed-capsule.svg) center / contain no-repeat;
+  background: var(--dispensed-capsule, url(assets/closed-capsule.svg)) center / contain no-repeat;
 }
 
 .capsule-shell-top {
