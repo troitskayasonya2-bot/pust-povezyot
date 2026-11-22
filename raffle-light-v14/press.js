@@ -1,5 +1,5 @@
 const motion = matchMedia('(prefers-reduced-motion: no-preference)');
-const controls = 'a.arcade-button, a.hotspot, a.game-link, .footer a, button.arcade-button, button.capsule-action, button.vending-dial';
+const controls = 'a.arcade-button, a.hotspot, a.game-link, .footer a, button.arcade-button, button.capsule-action, button.vending-dial, button.sound-toggle';
 const pressTime = 120;
 let navigationPending = false;
 
@@ -16,10 +16,22 @@ document.addEventListener('click', event => {
   }
 
   control.setAttribute('data-pressed', '');
-  if (navigate && motion.matches) {
+  let shell = null;
+  try {
+    if (window.parent !== window) shell = window.parent.pustPovezyot ?? null;
+  } catch {
+    // Embedded in another site: behave as an ordinary page.
+  }
+  if (navigate && (shell || motion.matches)) {
     event.preventDefault();
     navigationPending = true;
-    setTimeout(() => location.assign(control.href), pressTime);
+    const follow = () => (shell ? shell.go(control.href) : location.assign(control.href));
+    setTimeout(follow, motion.matches ? pressTime : 0);
+    // A lost connection must not leave every button dead.
+    setTimeout(() => {
+      navigationPending = false;
+      control.removeAttribute('data-pressed');
+    }, 4000);
   } else {
     setTimeout(() => control.removeAttribute('data-pressed'), pressTime);
   }

@@ -15,9 +15,9 @@ const toys = {
   light: { color: 'mint', art: 'assets/light-result.svg', alt: 'Фонарик-брелок в открытой капсуле' },
   top: { color: 'mint', art: 'assets/top-result.svg', alt: 'Полосатый волчок в открытой капсуле' },
   maze: { color: 'coral', art: 'assets/maze-result.svg', alt: 'Лабиринт с шариком в открытой капсуле' },
-  bounce: { color: 'yellow', art: 'assets/bounce-result.svg?v=2', alt: 'Разноцветный попрыгунчик в открытой капсуле' },
+  bounce: { color: 'yellow', art: 'assets/bounce-result.svg?v=3', alt: 'Разноцветный попрыгунчик в открытой капсуле' },
   note: { color: 'mint', art: 'assets/note-result.svg?v=2', alt: 'Сложенная бумажка в открытой капсуле' },
-  ring: { color: 'coral', art: 'assets/ring.svg?v=3', alt: 'Кольцо с красным камнем в открытой капсуле' },
+  ring: { color: 'coral', art: 'assets/ring.svg?v=4', alt: 'Кольцо с красным камнем в открытой капсуле' },
 };
 
 // [id, toy, title, text]. Keep the id 'ring': its desktop card has the text drawn in SVG.

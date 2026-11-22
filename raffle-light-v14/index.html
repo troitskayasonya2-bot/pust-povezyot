@@ -5,9 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Розыгрыш закончен · Пусть повезёт</title>
   <link rel="icon" href="data:,">
-  <link rel="stylesheet" href="styles.css?v=8">
-  <script src="press.js" defer></script>
-  <script src="preview.js" defer blocking="render"></script>
+  <link rel="modulepreload" href="../play/screen.js?v=1">
+  <link rel="modulepreload" href="../play/sound.js?v=1">
+  <link rel="modulepreload" href="../play/sound-map.js?v=1">
+  <link rel="stylesheet" href="styles.css?v=9">
+  <script src="press.js?v=2" defer></script>
+  <script src="preview.js?v=2" defer blocking="render"></script>
+  <script src="sound.js?v=1" type="module"></script>
 </head>
 <body class="raffle-page">
   <div class="screen">
@@ -41,7 +45,7 @@
           <input id="email" type="email" placeholder="you@example.com" required autocomplete="email" aria-describedby="entry-helper">
           <button class="arcade-button" type="submit">Участвовать</button>
         </div>
-        <p id="entry-helper" class="helper" aria-live="polite">Демо-форма. Почта никуда не отправляется.</p>
+        <p id="entry-helper" class="helper" aria-live="polite">Демо-форма. Почта никуда не&nbsp;отправляется.</p>
       </form>
       <a id="restart" class="arcade-button restart" href="../play/capsule.html?spin=1">Запустить автомат</a>
     </main>

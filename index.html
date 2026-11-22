@@ -1,100 +1,36 @@
 <!doctype html>
 <html lang="ru" style="background-color:#b1dafa">
 <head>
-  <base href="./play/">
-  <meta name="description" content="Пусть повезёт — игра с капсулами и предсказаниями, концепт для портфолио.">
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="description" content="Пусть повезёт — игра с капсулами и предсказаниями, концепт для портфолио.">
   <title>Пусть повезёт</title>
   <link rel="icon" href="data:,">
-  <link rel="stylesheet" href="../raffle-light-v14/styles.css?v=8">
-  <link rel="stylesheet" href="game.css?v=8">
-  <link rel="modulepreload" href="outcomes.js?v=10">
-  <script>
-    if (new URLSearchParams(location.search).get('view') === 'prediction') {
-      document.documentElement.dataset.prediction = '';
-    } else {
-      for (const file of ['machine-body', 'machine-grabber']) {
-        const preload = document.createElement('link');
-        preload.rel = 'preload';
-        preload.as = 'image';
-        preload.href = `assets/${file}.svg?v=3`;
-        document.head.append(preload);
-      }
+  <link rel="modulepreload" href="play/sound.js?v=1">
+  <link rel="modulepreload" href="play/sound-map.js?v=1">
+  <!-- The first screen's files, requested before its frame exists -->
+  <link rel="preload" href="raffle-light-v14/styles.css?v=9" as="style">
+  <link rel="preload" href="play/game.css?v=9" as="style">
+  <link rel="modulepreload" href="play/game.js?v=12">
+  <link rel="modulepreload" href="play/screen.js?v=1">
+  <style>
+    html, body { height: 100%; margin: 0; overflow: hidden; overscroll-behavior: none; }
+    .screen-frame { position: fixed; inset: 0; width: 100%; height: 100%; border: 0; opacity: 1; background: transparent; }
+    .screen-frame[data-waiting] { opacity: 0; pointer-events: none; }
+    @media (prefers-reduced-motion: no-preference) {
+      .screen-frame { transition: opacity 260ms cubic-bezier(.22,1,.36,1); }
     }
-  </script>
-  <script src="game.js?v=10" type="module" blocking="render"></script>
-  <script src="../raffle-light-v14/press.js" defer></script>
+    .safe-area {
+      position: fixed;
+      visibility: hidden;
+      pointer-events: none;
+      padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+    }
+  </style>
+  <script src="play/shell.js?v=1" type="module"></script>
 </head>
-<body class="game">
-  <main id="game">
-    <section id="start" class="scene" aria-label="Старт игры">
-      <div class="desktop">
-        <div class="desktop-hero machine-illustration" aria-hidden="true">
-          <img class="machine-body" data-src="assets/machine-body.svg?v=3" alt="" width="1040" height="878" data-fallback="assets/vending-machine.svg" fetchpriority="high">
-          <img class="machine-grabber" data-src="assets/machine-grabber.svg?v=3" alt="" width="515" height="447">
-        </div>
-        <div class="desktop-start-copy">
-          <img class="desktop-brand" src="assets/partners.svg" loading="lazy" alt="Авиасейлс × modi" width="257" height="35">
-          <div class="desktop-start-content">
-            <img class="desktop-interface" data-src="assets/desktop-start-ui.svg?v=6" alt="" width="1366" height="900" fetchpriority="high">
-            <h1 class="sr-only">Пусть повезёт</h1>
-            <p class="sr-only">Запускай автомат из детства, получай предсказания и участвуй в розыгрыше путешествия от Авиасейлс и подарков от modi.</p>
-            <a class="hotspot launch" data-action="launch" href="capsule.html"><img class="hotspot-art" src="assets/launch-face.svg" alt="" width="408" height="84" loading="lazy"><span class="sr-only">Запустить автомат</span></a>
-            <a class="hotspot prizes" data-action="prizes" href="../raffle-light-v14/?from=game"><img class="hotspot-art" src="assets/prizes-label.svg" alt="" width="191" height="42" loading="lazy"><span class="sr-only">Что можно выиграть</span></a>
-          </div>
-        </div>
-      </div>
-      <div class="compact">
-        <header class="compact-header">
-          <img src="assets/partners.svg" alt="Авиасейлс × modi" width="257" height="35">
-        </header>
-        <h1 class="compact-title"><img src="assets/title.svg" alt="Пусть повезёт" width="694" height="208"></h1>
-        <p class="compact-intro">Запускай автомат из детства, получай предсказания и участвуй в розыгрыше путешествия от Авиасейлс и подарков от modi.</p>
-        <div class="compact-machine machine-illustration" aria-hidden="true">
-          <img class="machine-body" data-src="assets/machine-body.svg?v=3" alt="" width="1040" height="878" data-fallback="assets/vending-machine.svg" fetchpriority="high">
-          <img class="machine-grabber" data-src="assets/machine-grabber.svg?v=3" alt="" width="515" height="447">
-        </div>
-        <div class="compact-start-actions">
-          <a class="arcade-button" data-action="launch" href="capsule.html">Запустить автомат</a>
-          <a class="game-link" data-action="prizes" href="../raffle-light-v14/?from=game">Что можно выиграть</a>
-        </div>
-      </div>
-    </section>
-    <section id="prediction" class="scene" aria-label="Предсказание" hidden>
-      <div class="desktop">
-        <div class="desktop-result-copy">
-          <img class="desktop-brand desktop-result-brand" src="assets/partners.svg" loading="lazy" alt="Авиасейлс × modi" width="257" height="35">
-          <div class="outcome-illustration desktop-reward">
-            <img class="desktop-ring" alt="Кольцо с красным камнем в открытой капсуле" width="578" height="612" data-outcome-art>
-          </div>
-          <img class="desktop-interface" data-src="assets/desktop-result-ui.svg?v=6" alt="" width="1440" height="900" fetchpriority="high">
-          <article class="desktop-outcome sr-only">
-            <h1 data-outcome-title>Тебе сделают предложение.</h1>
-            <p data-outcome-text>Заказать пиццу и никуда не идти.</p>
-          </article>
-          <a class="hotspot to-raffle" data-action="raffle" href="../raffle-light-v14/?from=game"><img class="hotspot-art" src="assets/raffle-face.svg" alt="" width="346" height="81" loading="lazy"><span class="sr-only">К розыгрышу</span></a>
-          <a class="hotspot again" data-action="again" href="capsule.html?spin=1"><img class="hotspot-art" src="assets/again-face.svg" alt="" width="224" height="81" loading="lazy"><span class="sr-only">Ещё капсула</span></a>
-        </div>
-      </div>
-      <div class="compact">
-        <header class="compact-header">
-          <img src="assets/partners.svg" alt="Авиасейлс × modi" width="257" height="35">
-          <img class="compact-wordmark" src="../raffle-light-v14/assets/wordmark.svg" alt="Пусть повезёт" width="170" height="65">
-        </header>
-        <div class="outcome-illustration compact-reward">
-          <img class="compact-ring" alt="Кольцо с красным камнем в открытой капсуле" width="578" height="612" data-outcome-art>
-        </div>
-        <article class="paper">
-          <h1 data-outcome-title>Тебе сделают предложение.</h1>
-          <p data-outcome-text>Заказать пиццу и никуда не идти.</p>
-        </article>
-        <div class="compact-result-actions">
-          <a class="arcade-button" data-action="raffle" href="../raffle-light-v14/?from=game">К розыгрышу</a>
-          <a class="arcade-button secondary" data-action="again" href="capsule.html?spin=1">Ещё капсула</a>
-        </div>
-      </div>
-    </section>
-  </main>
+<body>
+  <div class="safe-area" aria-hidden="true"></div>
+  <noscript><a href="play/">Открыть игру</a></noscript>
 </body>
 </html>

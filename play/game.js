@@ -1,4 +1,5 @@
-import { getOutcome } from './outcomes.js?v=10';
+import { getOutcome } from './outcomes.js?v=11';
+import { shown, sound } from './screen.js?v=1';
 
 const params = new URLSearchParams(location.search);
 const isPrediction = params.get('view') === 'prediction';
@@ -25,6 +26,7 @@ const wide = matchMedia('(min-width: 1000px) and (min-height: 640px) and (min-as
 
 if (isPrediction) {
   const outcome = getOutcome(params.get('prize'));
+  shown.then(() => sound.play(`toy-${outcome.toy}`, { delay: .16 }));
   for (const link of prediction.querySelectorAll('[data-action="again"]')) {
     const target = new URL(link.href);
     target.searchParams.set('after', outcome.id);
@@ -85,6 +87,23 @@ for (const illustration of scene.querySelectorAll('[data-fallback]')) {
   illustration.addEventListener('error', () => useFallback(illustration));
   if (illustration.hasAttribute('src') && illustration.complete && !illustration.naturalWidth) useFallback(illustration);
 }
+
+// The next screen is fetched while the player reads this one.
+function warmNextScreen() {
+  if (navigator.connection?.saveData) return;
+  for (const [href, as] of [
+    ['capsule.html', 'document'], ['capsule.css?v=10', 'style'], ['capsule.js?v=12', 'script'],
+    ['assets/vending-machine.svg', 'fetch'], ['assets/vending-background.svg', 'image'], ['assets/vending-rays.svg', 'image'],
+  ]) {
+    const link = document.createElement('link');
+    link.rel = 'prefetch';
+    link.href = href;
+    if (as !== 'document') link.as = as;
+    document.head.append(link);
+  }
+}
+if (document.readyState === 'complete') setTimeout(warmNextScreen, 300);
+else addEventListener('load', () => setTimeout(warmNextScreen, 300), { once: true });
 
 wide.addEventListener('change', loadDesktopInterface);
 loadDesktopInterface();

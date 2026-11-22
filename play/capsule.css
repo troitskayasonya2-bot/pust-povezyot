@@ -63,6 +63,11 @@
   display: none;
 }
 
+.capsule-stage:is([data-replay], [data-centered])[data-phase="error"] .vending-trigger {
+  display: inline-flex;
+  visibility: visible;
+}
+
 .capsule-stage:is([data-replay], [data-centered])[data-phase="error"] .vending-status {
   position: static;
   width: auto;
@@ -96,9 +101,11 @@
   visibility: hidden;
 }
 
-.capsule-stage:is([data-reveal], [data-phase="loading"]) .vending-trigger {
+.capsule-stage[data-reveal] .vending-trigger {
   visibility: hidden;
 }
+
+.capsule-stage[data-phase="loading"] .vending-trigger { opacity: .62; }
 
 .vending-trigger {
   width: min(78vw, 312px);
@@ -326,7 +333,7 @@
   display: block;
 }
 
-@media (min-width: 560px) and (min-aspect-ratio: 5/4) {
+@media (min-width: 480px) and (min-aspect-ratio: 5/4) {
   .capsule-screen {
     grid-template-rows: 1fr;
   }
@@ -377,13 +384,44 @@
   }
 }
 
-@media (min-width: 560px) and (max-height: 540px) and (min-aspect-ratio: 5/4) {
-  .capsule-screen .header { padding-top: max(12px, env(safe-area-inset-top)); }
+@media (min-width: 480px) and (max-height: 540px) and (min-aspect-ratio: 5/4) {
+  .capsule-screen .header { padding-top: max(12px, var(--safe-top, env(safe-area-inset-top, 0px))); }
   .capsule-screen .header .partners { width: min(34vw, 202px); }
   .capsule-screen .header .wordmark { width: min(19vw, 105px); }
-  .capsule-screen .footer { padding-bottom: max(12px, env(safe-area-inset-bottom)); }
-  .capsule-stage { padding-block: max(44px, env(safe-area-inset-top)) max(24px, env(safe-area-inset-bottom)); }
+  .capsule-screen .footer { padding-bottom: max(12px, var(--safe-bottom, env(safe-area-inset-bottom, 0px))); }
+  .capsule-stage { padding-block: max(44px, var(--safe-top, env(safe-area-inset-top, 0px))) max(24px, var(--safe-bottom, env(safe-area-inset-bottom, 0px))); }
   .vending-controls { width: min(100%, 276px); }
   .vending-trigger { min-height: 56px; }
   .capsule-label { top: calc(100% + 5px); }
+}
+
+@media (min-width: 560px) and (max-aspect-ratio: 5/4) {
+  .vending-frame { width: min(100%, 560px, max(190px, (100svh - 296px) * 2 / 3)); }
+}
+
+@media (min-width: 480px) and (max-height: 460px) and (min-aspect-ratio: 5/4) {
+  .capsule-stage { padding-block: 38px 12px; }
+  .capsule-screen .footer { padding-bottom: var(--safe-bottom, env(safe-area-inset-bottom, 0px)); font-size: 15px; }
+  .vending-frame { width: min(100%, max(120px, (100svh - 62px) * 2 / 3)); }
+  .capsule-action { width: min(52svh, 40vw); }
+}
+
+@media (min-width: 1700px) and (min-height: 950px) {
+  .capsule-screen .header .wordmark { width: calc(150 * var(--u)); }
+  .capsule-form { width: min(100%, 1130 * var(--u)); }
+  .vending-controls { width: min(100%, 352 * var(--u)); }
+  .vending-trigger {
+    min-height: calc(78 * var(--u));
+    border-width: calc(2 * var(--u));
+    box-shadow: 0 calc(5 * var(--u)) 0 var(--ink);
+    font-size: calc(26 * var(--u));
+  }
+  .vending-frame { width: min(100%, 600 * var(--u), (100svh - 90px) * 2 / 3); }
+  .capsule-action { width: min(51svh, 440 * var(--u)); }
+  .capsule-label { top: calc(100% + 15 * var(--u)); font-size: calc(23 * var(--u)); }
+}
+
+@media (min-width: 700px) and (min-height: 850px) and (max-aspect-ratio: 5/4) {
+  .vending-trigger { width: min(56vw, 440px); min-height: 78px; font-size: 26px; }
+  .capsule-label { font-size: 25px; }
 }

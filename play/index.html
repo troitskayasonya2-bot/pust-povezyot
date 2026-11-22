@@ -5,9 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Пусть повезёт</title>
   <link rel="icon" href="data:,">
-  <link rel="stylesheet" href="../raffle-light-v14/styles.css?v=8">
-  <link rel="stylesheet" href="game.css?v=8">
-  <link rel="modulepreload" href="outcomes.js?v=10">
+  <link rel="modulepreload" href="screen.js?v=1">
+  <link rel="modulepreload" href="sound.js?v=1">
+  <link rel="modulepreload" href="sound-map.js?v=1">
+  <link rel="stylesheet" href="../raffle-light-v14/styles.css?v=9">
+  <link rel="stylesheet" href="game.css?v=9">
+  <link rel="modulepreload" href="outcomes.js?v=11">
   <script>
     if (new URLSearchParams(location.search).get('view') === 'prediction') {
       document.documentElement.dataset.prediction = '';
@@ -16,21 +19,21 @@
         const preload = document.createElement('link');
         preload.rel = 'preload';
         preload.as = 'image';
-        preload.href = `assets/${file}.svg?v=3`;
+        preload.href = `assets/${file}.svg?v=4`;
         document.head.append(preload);
       }
     }
   </script>
-  <script src="game.js?v=10" type="module" blocking="render"></script>
-  <script src="../raffle-light-v14/press.js" defer></script>
+  <script src="game.js?v=12" type="module" blocking="render"></script>
+  <script src="../raffle-light-v14/press.js?v=2" defer></script>
 </head>
 <body class="game">
   <main id="game">
     <section id="start" class="scene" aria-label="Старт игры">
       <div class="desktop">
         <div class="desktop-hero machine-illustration" aria-hidden="true">
-          <img class="machine-body" data-src="assets/machine-body.svg?v=3" alt="" width="1040" height="878" data-fallback="assets/vending-machine.svg" fetchpriority="high">
-          <img class="machine-grabber" data-src="assets/machine-grabber.svg?v=3" alt="" width="515" height="447">
+          <img class="machine-body" data-src="assets/machine-body.svg?v=4" alt="" width="1040" height="878" data-fallback="assets/vending-machine.svg" fetchpriority="high">
+          <img class="machine-grabber" data-src="assets/machine-grabber.svg?v=4" alt="" width="515" height="447">
         </div>
         <div class="desktop-start-copy">
           <img class="desktop-brand" src="assets/partners.svg" loading="lazy" alt="Авиасейлс × modi" width="257" height="35">
@@ -48,10 +51,10 @@
           <img src="assets/partners.svg" alt="Авиасейлс × modi" width="257" height="35">
         </header>
         <h1 class="compact-title"><img src="assets/title.svg" alt="Пусть повезёт" width="694" height="208"></h1>
-        <p class="compact-intro">Запускай автомат из детства, получай предсказания и участвуй в розыгрыше путешествия от Авиасейлс и подарков от modi.</p>
+        <p class="compact-intro">Запускай автомат из&nbsp;детства, получай предсказания и&nbsp;участвуй в&nbsp;розыгрыше путешествия от&nbsp;Авиасейлс и&nbsp;подарков от&nbsp;modi.</p>
         <div class="compact-machine machine-illustration" aria-hidden="true">
-          <img class="machine-body" data-src="assets/machine-body.svg?v=3" alt="" width="1040" height="878" data-fallback="assets/vending-machine.svg" fetchpriority="high">
-          <img class="machine-grabber" data-src="assets/machine-grabber.svg?v=3" alt="" width="515" height="447">
+          <img class="machine-body" data-src="assets/machine-body.svg?v=4" alt="" width="1040" height="878" data-fallback="assets/vending-machine.svg" fetchpriority="high">
+          <img class="machine-grabber" data-src="assets/machine-grabber.svg?v=4" alt="" width="515" height="447">
         </div>
         <div class="compact-start-actions">
           <a class="arcade-button" data-action="launch" href="capsule.html">Запустить автомат</a>

@@ -21,5 +21,6 @@ if (openRaffle) {
 entry.addEventListener('submit', event => {
   event.preventDefault();
   email.value = '';
-  helper.textContent = 'Это превью. Заявка не отправлена.';
+  helper.textContent = 'Это превью. Заявка не\u00a0отправлена.';
+  dispatchEvent(new Event('raffle:entered'));
 });

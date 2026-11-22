@@ -1,4 +1,5 @@
-import { drawOutcome, saveOutcome } from './outcomes.js?v=10';
+import { drawOutcome, saveOutcome } from './outcomes.js?v=11';
+import { go, shown, sound } from './screen.js?v=1';
 
 const stage = document.querySelector('.capsule-stage');
 const screen = stage.closest('.capsule-screen');
@@ -48,17 +49,38 @@ function setPhase(phase) {
   dial.disabled = phase !== 'ready';
   trigger.disabled = phase !== 'ready';
   action.disabled = phase !== 'available';
-  trigger.textContent = phase === 'error' ? 'Автомат не загрузился' : 'Крутить';
+  trigger.textContent = phase === 'error' ? 'Обновить' : 'Крутить';
+  if (phase === 'error') trigger.disabled = false;
 }
 
+const pause = time => new Promise(resolve => setTimeout(resolve, time));
+
+// An animation may never report back (a background tab, power saving). The game moves on regardless.
 async function animate(element, frames, options) {
   if (!motion.matches) return;
-  await element.animate(frames, options).finished.catch(() => {});
+  const animation = element.animate(frames, options);
+  const limit = options.duration + (options.delay ?? 0) + 600;
+  await Promise.race([animation.finished.catch(() => {}), pause(limit)]);
+  if (animation.playState === 'running' || animation.pending) {
+    try { animation.finish(); } catch { animation.cancel(); }
+  }
+}
+
+// A picture gets two tries, each with a time limit.
+async function loadPicture(src, limit = 6000) {
+  for (const suffix of ['', `${src.includes('?') ? '&' : '?'}retry`]) {
+    const image = new Image();
+    image.src = src + suffix;
+    const ready = await Promise.race([image.decode().then(() => true, () => false), pause(limit).then(() => false)]);
+    if (ready) return image.src;
+  }
+  return null;
 }
 
 async function centerMachine() {
   if (replay) return;
   setPhase('centering');
+  sound.play('whoosh', { delay: .18 });
   const from = frame.getBoundingClientRect();
   await animate(trigger, [
     { opacity: 1, scale: 1 },
@@ -113,6 +135,7 @@ function shakeStock(element, index) {
 async function vend(start = 0, direction = 1) {
   if (stage.dataset.phase !== 'ready') return;
   gesture = null;
+  sound.play('tap');
   const keyboard = dial.matches(':focus-visible') || trigger.matches(':focus-visible');
   pendingDraw = drawOutcome(query.get('after'));
   const { outcome } = pendingDraw;
@@ -120,11 +143,13 @@ async function vend(start = 0, direction = 1) {
   form.elements.prize.disabled = false;
   outletBall.src = picture.src = outcome.capsule;
   action.style.setProperty('--dispensed-capsule', `url("${outcome.capsule}")`);
-  const capsuleReady = picture.decode().then(() => true, () => false);
+  const capsuleReady = loadPicture(outcome.capsule);
   rewardPreview.src = outcome.art;
   rewardPreview.decode().catch(() => {});
 
   await centerMachine();
+  sound.setMood('suspense');
+  if (motion.matches) sound.play('shake');
   screen.style.setProperty('--shake-time', `${shakeDuration}ms`);
   setPhase('turning');
   vibrate(shakeVibration);
@@ -143,12 +168,15 @@ async function vend(start = 0, direction = 1) {
   ]);
   knob.style.removeProperty('--turn');
 
-  if (!await capsuleReady) {
+  const capsuleSource = await capsuleReady;
+  if (!capsuleSource) {
     setPhase('error');
     status.textContent = 'Капсула не загрузилась. Обнови страницу.';
     return;
   }
+  if (capsuleSource.endsWith('retry')) outletBall.src = picture.src = capsuleSource;
   setPhase('dispensing');
+  if (motion.matches) sound.play('drop');
   outlet.hidden = false;
   const dropOptions = { duration: 1450, fill: 'forwards' };
   await Promise.all([
@@ -174,6 +202,7 @@ async function vend(start = 0, direction = 1) {
   outlet.hidden = true;
   stage.dataset.reveal = '';
   setPhase('presenting');
+  if (motion.matches) sound.play('roll');
   vibrate(48);
 
   await animate(ball, [
@@ -183,6 +212,8 @@ async function vend(start = 0, direction = 1) {
   ], { duration: 780, easing: 'cubic-bezier(.24,.64,.34,1)' });
 
   setPhase('available');
+  sound.setMood('reveal');
+  sound.play('ready');
   if (keyboard) action.focus({ preventScroll: true });
 }
 
@@ -228,7 +259,7 @@ dial.addEventListener('wheel', event => {
   event.preventDefault();
   vend(0, Math.sign(event.deltaY));
 }, { passive: false });
-trigger.addEventListener('click', () => vend());
+trigger.addEventListener('click', () => (stage.dataset.phase === 'error' ? location.reload() : vend()));
 
 form.addEventListener('submit', async event => {
   if (stage.dataset.phase !== 'available') {
@@ -239,8 +270,14 @@ form.addEventListener('submit', async event => {
     saveOutcome(pendingDraw);
     pendingDraw = null;
   }
-  if (!motion.matches) return;
   event.preventDefault();
+  sound.play('open');
+  const destination = new URL(form.action);
+  destination.search = new URLSearchParams(new FormData(form));
+  if (!motion.matches) {
+    go(destination.href);
+    return;
+  }
   setPhase('opening');
 
   const options = { duration: 290, easing: 'cubic-bezier(.22,1,.36,1)', fill: 'forwards' };
@@ -254,7 +291,7 @@ form.addEventListener('submit', async event => {
       { transform: 'translateY(8%)', opacity: .35 },
     ], options),
   ]);
-  form.submit();
+  go(destination.href);
 });
 
 window.addEventListener('pageshow', event => {
@@ -269,10 +306,24 @@ window.addEventListener('pagehide', () => {
   if (stage.matches('[data-phase="turning"], [data-phase="presenting"]')) navigator.vibrate?.(0);
 });
 
+async function fetchMachine(attempt = 0) {
+  const abort = new AbortController();
+  const timer = setTimeout(() => abort.abort(), 8000);
+  try {
+    const response = await fetch('assets/vending-machine.svg', { signal: abort.signal });
+    if (!response.ok) throw new Error('Автомат не загрузился');
+    return await response.text();
+  } catch (error) {
+    if (attempt >= 2) throw error;
+    await pause(400 * (attempt + 1));
+    return await fetchMachine(attempt + 1);
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
 async function loadMachine() {
-  const response = await fetch('assets/vending-machine.svg');
-  if (!response.ok) throw new Error('Автомат не загрузился');
-  const source = new DOMParser().parseFromString(await response.text(), 'image/svg+xml');
+  const source = new DOMParser().parseFromString(await fetchMachine(), 'image/svg+xml');
   const svg = document.importNode(source.documentElement, true);
   knob = svg.querySelector('#vending-knob');
   stock = [...svg.querySelectorAll('[data-stock]')];
@@ -280,14 +331,15 @@ async function loadMachine() {
   machineArt.append(svg);
 }
 
-Promise.all([loadMachine(), picture.decode()])
+loadMachine()
   .then(() => {
     setPhase('ready');
+    for (const name of ['closed-capsule', 'closed-capsule-bounce', 'closed-capsule-note']) new Image().src = `assets/${name}.svg`;
     if (replay) {
       const url = new URL(location.href);
       url.searchParams.delete('spin');
       history.replaceState(history.state, '', url);
-      vend();
+      shown.then(() => vend());
     }
   })
   .catch(() => setPhase('error'))
