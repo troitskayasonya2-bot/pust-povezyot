@@ -1,4 +1,4 @@
-import { getOutcome } from './outcomes.js?v=9';
+import { getOutcome } from './outcomes.js?v=10';
 
 const params = new URLSearchParams(location.search);
 const isPrediction = params.get('view') === 'prediction';
