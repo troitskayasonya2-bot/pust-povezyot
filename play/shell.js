@@ -1,4 +1,4 @@
-import { createSound } from './sound.js?v=1';
+import { createSound } from './sound.js?v=3';
 
 // One document for the whole game: the sound survives every transition,
 // and the next screen appears only when it is ready.
@@ -55,6 +55,17 @@ function present(frame) {
   }
 }
 
+function adopt(frame) {
+  waiting = frame;
+  frame.addEventListener('load', () => present(frame));
+  try {
+    if (frame.contentDocument?.readyState === 'complete' && frame.contentWindow.location.href !== 'about:blank') present(frame);
+  } catch {
+    // A browser error page: the timer below shows it.
+  }
+  setTimeout(() => { if (frame === waiting) present(frame); }, 7000);
+}
+
 function show(route) {
   waiting?.remove();
   sound.settle();
@@ -106,5 +117,12 @@ function routeFromAddress() {
 }
 
 addEventListener('popstate', () => show(routeFromAddress()));
+
 addEventListener('resize', () => { if (current) passSafeArea(current); });
-show(routeFromAddress());
+const first = document.querySelector('.screen-frame[data-route]');
+if (first && first.dataset.route === routeFromAddress()) adopt(first);
+else {
+  first?.remove();
+  show(routeFromAddress());
+}
+dispatchEvent(new Event('pust:ready'));

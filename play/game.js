@@ -1,5 +1,5 @@
 import { getOutcome } from './outcomes.js?v=11';
-import { shown, sound } from './screen.js?v=1';
+import { shown, sound } from './screen.js?v=3';
 
 const params = new URLSearchParams(location.search);
 const isPrediction = params.get('view') === 'prediction';
@@ -92,7 +92,7 @@ for (const illustration of scene.querySelectorAll('[data-fallback]')) {
 function warmNextScreen() {
   if (navigator.connection?.saveData) return;
   for (const [href, as] of [
-    ['capsule.html', 'document'], ['capsule.css?v=10', 'style'], ['capsule.js?v=12', 'script'],
+    ['capsule.html', 'document'], ['capsule.css?v=10', 'style'], ['capsule.js?v=14', 'script'],
     ['assets/vending-machine.svg', 'fetch'], ['assets/vending-background.svg', 'image'], ['assets/vending-rays.svg', 'image'],
   ]) {
     const link = document.createElement('link');
@@ -104,6 +104,22 @@ function warmNextScreen() {
 }
 if (document.readyState === 'complete') setTimeout(warmNextScreen, 300);
 else addEventListener('load', () => setTimeout(warmNextScreen, 300), { once: true });
+
+// The machine fills whatever height the copy and the buttons leave free.
+function fitStartArt() {
+  const column = start.querySelector('.compact');
+  const actions = column?.querySelector('.compact-start-actions');
+  if (isPrediction || !actions || !actions.getClientRects().length) return;
+  const gap = parseFloat(getComputedStyle(column).rowGap) || 0;
+  const free = innerHeight - actions.getBoundingClientRect().bottom - gap - 2;
+  column.style.setProperty('--art-free', `${Math.max(0, free)}px`);
+}
+if (!isPrediction) {
+  fitStartArt();
+  addEventListener('resize', fitStartArt);
+  document.fonts?.ready.then(fitStartArt);
+  new ResizeObserver(fitStartArt).observe(start.querySelector('.compact-start-actions'));
+}
 
 wide.addEventListener('change', loadDesktopInterface);
 loadDesktopInterface();

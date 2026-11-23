@@ -16,16 +16,20 @@ document.addEventListener('click', event => {
   }
 
   control.setAttribute('data-pressed', '');
-  let shell = null;
+  let host = null;
   try {
-    if (window.parent !== window) shell = window.parent.pustPovezyot ?? null;
+    if (window.parent !== window && window.parent.pustPovezyotBoot) host = window.parent;
   } catch {
     // Embedded in another site: behave as an ordinary page.
   }
-  if (navigate && (shell || motion.matches)) {
+  if (navigate && (host || motion.matches)) {
     event.preventDefault();
     navigationPending = true;
-    const follow = () => (shell ? shell.go(control.href) : location.assign(control.href));
+    const follow = () => {
+      if (!host) location.assign(control.href);
+      else if (host.pustPovezyot) host.pustPovezyot.go(control.href);
+      else host.addEventListener('pust:ready', () => host.pustPovezyot.go(control.href), { once: true });
+    };
     setTimeout(follow, motion.matches ? pressTime : 0);
     // A lost connection must not leave every button dead.
     setTimeout(() => {

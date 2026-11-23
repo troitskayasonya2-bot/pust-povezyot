@@ -574,3 +574,35 @@ html[data-prediction] #start { display: none; }
 }
 
 #start .compact-header .sound-toggle { translate: -6px; }
+
+/* Start screen on phones and tablets: copy and actions on top, the machine
+   in the bottom right corner running off both edges, as on the desktop. */
+#start .compact {
+  --pad-b: max(20px, var(--safe-bottom, env(safe-area-inset-bottom, 0px)));
+  --pad-r: max(var(--compact-edge), var(--safe-right, env(safe-area-inset-right, 0px)));
+  width: 100%;
+  padding-bottom: var(--pad-b);
+}
+#start .compact > :is(.compact-header, .compact-title, .compact-intro) { width: min(100%, 940px); }
+#start .compact-start-actions { order: 4; }
+#start .compact-machine {
+  --machine-height: auto;
+  order: 5;
+  align-self: flex-end;
+  width: clamp(min(100vw, 26svh * 1040 / 878), var(--art-free, 40svh) * 1040 / 878, min(100vw, 62svh * 1040 / 878));
+  margin: auto calc(-1 * var(--pad-r)) calc(-1 * var(--pad-b)) 0;
+}
+@media (min-width: 480px) and (min-aspect-ratio: 5/4) {
+  #start .compact { --pad-b: max(10px, var(--safe-bottom, env(safe-area-inset-bottom, 0px))); }
+  #start .compact-machine {
+    align-self: end;
+    justify-self: end;
+    width: min(100%, (100svh - 46px) * 1040 / 878);
+    margin: 0 calc(-1 * var(--pad-r)) calc(-1 * var(--pad-b)) 0;
+  }
+}
+@media (min-width: 560px) and (max-aspect-ratio: 5/4) {
+  #start .compact { align-items: flex-start; }
+  #start .compact-title { width: min(78%, 640px); margin-top: clamp(8px, 4svh, 56px); }
+  #start .compact-intro { max-width: 34em; }
+}

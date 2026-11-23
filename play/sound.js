@@ -1,4 +1,4 @@
-import { clips, musicLoop } from './sound-map.js?v=1';
+import { clips, musicLoop } from './sound-map.js?v=2';
 
 // Sound never holds up the game: a late or missing file only means silence.
 const musicLevel = { calm: .5, machine: .3, suspense: .05, reveal: .36 };
@@ -19,7 +19,7 @@ export function createSound() {
 
   // A failed download is forgotten, so the next gesture tries again.
   function bytes(name) {
-    files[name] ??= fetch(new URL(`audio/${name}.mp3?v=1`, import.meta.url))
+    files[name] ??= fetch(new URL(`audio/${name}.mp3?v=2`, import.meta.url))
       .then(response => (response.ok ? response.arrayBuffer() : Promise.reject(new Error(response.status))))
       .catch(() => { delete files[name]; return null; });
     return files[name];
@@ -74,7 +74,8 @@ export function createSound() {
         blank.connect(context.destination);
         blank.start();
       }
-      decode('sfx').then(() => decode('music')).then(startMusic);
+      decode('machine');
+      decode('music').then(startMusic);
     } catch {
       // No audio device: the game continues silently.
     }
@@ -83,17 +84,19 @@ export function createSound() {
   function play(name, { delay = 0, volume = 1 } = {}) {
     if (muted || !context || !clips[name]) return;
     const asked = performance.now();
-    const [start, length] = clips[name];
+    const [file, start, length] = clips[name];
 
     const begin = () => {
-      if (muted || !buffers.sfx || context.state === 'closed') return;
+      if (muted || !buffers[file] || context.state === 'closed') return;
       const late = Math.max(0, (performance.now() - asked) / 1000);
       // A short sound that missed its moment is skipped; a long one joins in step.
-      if (late > .35 && (length < 2 || late > length - .3)) return;
-      const skip = late > .08 ? late : 0;
+      const joins = length >= 2 && file === 'machine';
+      const patience = name.startsWith('toy-') ? 1.5 : .5;
+      if (joins ? late > length - .3 : late > patience) return;
+      const skip = joins && late > .08 ? late : 0;
       const source = context.createBufferSource();
       const gain = context.createGain();
-      source.buffer = buffers.sfx;
+      source.buffer = buffers[file];
       gain.gain.value = volume;
       source.connect(gain);
       gain.connect(effectsBus);
@@ -107,8 +110,8 @@ export function createSound() {
       };
     };
 
-    if (buffers.sfx && context.state === 'running') begin();
-    else Promise.all([decode('sfx'), context.resume()]).then(begin, () => {});
+    if (buffers[file] && context.state === 'running') begin();
+    else Promise.all([decode(file), context.resume()]).then(begin, () => {});
   }
 
   // Leaving a screen takes its long sounds with it.
@@ -143,13 +146,23 @@ export function createSound() {
   });
 
   function preload() {
-    if (!navigator.connection?.saveData) bytes('sfx');
+    if (navigator.connection?.saveData) return;
+    bytes('machine');
+    bytes('music');
+  }
+
+  // The toy is known seven seconds before it is seen.
+  function prepare(name) {
+    if (muted || !clips[name]) return;
+    const [file] = clips[name];
+    if (context) decode(file);
+    else bytes(file);
   }
 
   return {
-    unlock, play, settle, setMood, setMuted, preload,
+    unlock, play, settle, setMood, setMuted, preload, prepare,
     get muted() { return muted; },
-    get state() { return { context: context?.state ?? 'none', effects: !!buffers.sfx, music: !!music, mood, muted }; },
+    get state() { return { context: context?.state ?? 'none', effects: !!buffers.machine, music: !!music, mood, muted }; },
     subscribe(listener) { listeners.add(listener); return () => listeners.delete(listener); },
   };
 }
