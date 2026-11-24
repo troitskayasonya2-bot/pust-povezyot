@@ -1,4 +1,4 @@
-import { clips, musicLoop, calmLoop } from './sound-map.js?v=5';
+import { clips, musicLoop, calmLoop } from './sound-map.js?v=6';
 
 // Sound never holds up the game: a late or missing file only means silence.
 const musicLevel = { calm: .5, machine: .3, suspense: .05, reveal: .36 };
@@ -22,7 +22,7 @@ export function createSound() {
 
   // A failed download is forgotten, so the next gesture tries again.
   function bytes(name) {
-    files[name] ??= fetch(new URL(`audio/${name}.mp3?v=9`, import.meta.url))
+    files[name] ??= fetch(new URL(`audio/${name}.mp3?v=10`, import.meta.url))
       .then(response => (response.ok ? response.arrayBuffer() : Promise.reject(new Error(response.status))))
       .catch(() => { delete files[name]; return null; });
     return files[name];
@@ -113,7 +113,7 @@ export function createSound() {
       const late = Math.max(0, (performance.now() - asked) / 1000);
       // A short sound that missed its moment is skipped; a long one joins in step.
       const joins = length >= 2 && file === 'machine';
-      const patience = name.startsWith('toy-') ? 1.5 : .5;
+      const patience = file === 'machine' ? .5 : 1.5;
       if (joins ? late > length - .3 : late > patience) return;
       const skip = joins && late > .08 ? late : 0;
       const source = context.createBufferSource();

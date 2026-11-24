@@ -1,4 +1,4 @@
-import { createSound } from './sound.js?v=10';
+import { createSound } from './sound.js?v=11';
 
 // Inside index.html the sound and the transitions belong to the shell.
 // A page opened by its own link works alone, with its own sound.

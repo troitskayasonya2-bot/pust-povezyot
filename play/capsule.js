@@ -1,5 +1,5 @@
 import { drawOutcome, saveOutcome } from './outcomes.js?v=11';
-import { go, shown, sound } from './screen.js?v=10';
+import { go, shown, sound } from './screen.js?v=11';
 
 const stage = document.querySelector('.capsule-stage');
 const screen = stage.closest('.capsule-screen');
@@ -146,6 +146,7 @@ async function vend(start = 0, direction = 1, paid = false) {
   action.style.setProperty('--dispensed-capsule', `url("${outcome.capsule}")`);
   const capsuleReady = loadPicture(outcome.capsule);
   sound.prepare(`toy-${outcome.toy}`);
+  sound.prepare('wow-1');
   rewardPreview.src = outcome.art;
   rewardPreview.decode().catch(() => {});
 

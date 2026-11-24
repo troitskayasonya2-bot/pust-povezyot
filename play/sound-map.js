@@ -22,6 +22,11 @@ export const clips = {
   'toy-bounce': ['toy-bounce', 0, 1.6],
   'toy-note': ['toy-note', 0, 0.9],
   'toy-ring': ['toy-ring', 0, 0.7],
+  // Crowd reactions from sound-design/render_crowd.py (crowd.json).
+  'wow-1': ['crowd', 0.05, 1.3],
+  'wow-2': ['crowd', 1.45, 1.35],
+  'ooh-1': ['crowd', 2.9, 1.3],
+  'ooh-2': ['crowd', 4.3, 1.35],
 };
 
 export const musicLoop = {"loopStart": 0.3, "loopEnd": 37.3};

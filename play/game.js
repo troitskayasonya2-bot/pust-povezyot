@@ -1,7 +1,9 @@
 import { getOutcome } from './outcomes.js?v=11';
-import { shown, sound } from './screen.js?v=10';
+import { shown, sound } from './screen.js?v=11';
 
 const params = new URLSearchParams(location.search);
+// Predictions that are plainly good news; the rest come with a catch.
+const cheers = new Set(['water-2', 'car', 'hand', 'top-2', 'bounce', 'bounce-2', 'note', 'note-2', 'ring', 'ring-2']);
 const isPrediction = params.get('view') === 'prediction';
 const openRaffle = params.get('state') === 'open';
 
@@ -26,7 +28,12 @@ const wide = matchMedia('(min-width: 1000px) and (min-height: 640px) and (min-as
 
 if (isPrediction) {
   const outcome = getOutcome(params.get('prize'));
-  shown.then(() => sound.play(`toy-${outcome.toy}`, { delay: .16 }));
+  // The crowd round the machine reacts: «ааа!» to a good one, «ооо…» to one with a catch.
+  const reaction = cheers.has(outcome.id) ? 'wow' : 'ooh';
+  shown.then(() => {
+    sound.play(`${reaction}-${1 + Math.floor(Math.random() * 2)}`, { delay: .08, volume: .7 });
+    sound.play(`toy-${outcome.toy}`, { delay: .9 });
+  });
   for (const link of prediction.querySelectorAll('[data-action="again"]')) {
     const target = new URL(link.href);
     target.searchParams.set('after', outcome.id);
@@ -92,7 +99,7 @@ for (const illustration of scene.querySelectorAll('[data-fallback]')) {
 function warmNextScreen() {
   if (navigator.connection?.saveData) return;
   for (const [href, as] of [
-    ['capsule.html', 'document'], ['capsule.css?v=10', 'style'], ['capsule.js?v=21', 'script'],
+    ['capsule.html', 'document'], ['capsule.css?v=10', 'style'], ['capsule.js?v=22', 'script'],
     ['assets/vending-machine.svg', 'fetch'], ['assets/vending-background.svg', 'image'], ['assets/vending-rays.svg', 'image'],
   ]) {
     const link = document.createElement('link');
