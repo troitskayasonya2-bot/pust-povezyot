@@ -1,5 +1,5 @@
 import { getOutcome } from './outcomes.js?v=11';
-import { shown, sound } from './screen.js?v=8';
+import { shown, sound } from './screen.js?v=9';
 
 const params = new URLSearchParams(location.search);
 const isPrediction = params.get('view') === 'prediction';
@@ -26,14 +26,18 @@ const wide = matchMedia('(min-width: 1000px) and (min-height: 640px) and (min-as
 
 if (isPrediction) {
   const outcome = getOutcome(params.get('prize'));
-  shown.then(() => sound.play(`toy-${outcome.toy}`, { delay: .16 }));
+  // A short «вау» as the toy appears, then the toy's own voice.
+  shown.then(() => {
+    sound.play('wow', { delay: .08 });
+    sound.play(`toy-${outcome.toy}`, { delay: .75 });
+  });
   for (const link of prediction.querySelectorAll('[data-action="again"]')) {
     const target = new URL(link.href);
     target.searchParams.set('after', outcome.id);
     link.href = target.href;
   }
   if (outcome.id !== 'ring') {
-    vectorInterface.dataset.src = 'assets/desktop-result-frame.svg?v=6';
+    vectorInterface.dataset.src = 'assets/desktop-result-frame.svg?v=7';
     desktop.querySelector('.desktop-outcome').classList.remove('sr-only');
   }
 
@@ -92,7 +96,7 @@ for (const illustration of scene.querySelectorAll('[data-fallback]')) {
 function warmNextScreen() {
   if (navigator.connection?.saveData) return;
   for (const [href, as] of [
-    ['capsule.html', 'document'], ['capsule.css?v=10', 'style'], ['capsule.js?v=19', 'script'],
+    ['capsule.html', 'document'], ['capsule.css?v=10', 'style'], ['capsule.js?v=20', 'script'],
     ['assets/vending-machine.svg', 'fetch'], ['assets/vending-background.svg', 'image'], ['assets/vending-rays.svg', 'image'],
   ]) {
     const link = document.createElement('link');

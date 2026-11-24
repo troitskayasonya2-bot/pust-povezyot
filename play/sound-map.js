@@ -9,6 +9,7 @@ export const clips = {
   'ready': ['machine', 9.945, 0.3],
   'open': ['machine', 10.395, 0.45],
   'win': ['machine', 10.995, 1.48],
+  'wow': ['machine', 12.625, 0.8],
   'toy-water': ['toy-water', 0, 1.3],
   'toy-car': ['toy-car', 0, 1.4],
   'toy-frog': ['toy-frog', 0, 1.3],

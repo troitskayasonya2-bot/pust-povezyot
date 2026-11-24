@@ -353,3 +353,7 @@ input::placeholder { color: #52667f; opacity: 1; }
 @media (max-height: 460px) {
   .compact-header .sound-toggle { position: relative; top: 6px; }
 }
+/* The partners logo leads back to the first screen; the link adds no box, so the header keeps its layout. */
+.header .home-link, .compact-header .home-link { display: contents; }
+.home-link:focus-visible img { outline: 3px solid currentColor; outline-offset: 4px; border-radius: 4px; }
+.header .sound-toggle, .compact-header .sound-toggle { margin-left: auto; }

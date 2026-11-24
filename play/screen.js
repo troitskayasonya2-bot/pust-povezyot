@@ -1,4 +1,4 @@
-import { createSound } from './sound.js?v=8';
+import { createSound } from './sound.js?v=9';
 
 // Inside index.html the sound and the transitions belong to the shell.
 // A page opened by its own link works alone, with its own sound.
@@ -97,8 +97,9 @@ for (const type of ['pointerup', 'touchend', 'keydown', 'click']) {
 document.addEventListener('click', event => {
   const control = event.target.closest('a, button');
   if (!control || control.disabled || control.matches('.sound-toggle, .capsule-action, .vending-dial, .vending-trigger')) return;
-  const toMachine = control.tagName === 'A' && control.pathname.endsWith('/capsule.html');
-  sound.play(toMachine ? 'coin' : 'tap');
+  // Only a link that starts the machine at once pays a coin; «Запустить автомат» just opens it.
+  const spins = control.tagName === 'A' && control.pathname.endsWith('/capsule.html') && control.search.includes('spin=1');
+  sound.play(spins ? 'coin' : 'tap');
 }, { capture: true });
 
 // The machine stands in a noisy mall; the start, the prediction and the raffle share one easy tune.

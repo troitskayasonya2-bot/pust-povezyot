@@ -606,3 +606,5 @@ html[data-prediction] #start { display: none; }
   #start .compact-title { width: min(78%, 640px); margin-top: clamp(8px, 4svh, 56px); }
   #start .compact-intro { max-width: 34em; }
 }
+.desktop-brand.home-link { z-index: 3; display: block; }
+.desktop-brand.home-link img { display: block; width: 100%; height: auto; }

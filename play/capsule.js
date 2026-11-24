@@ -1,5 +1,5 @@
 import { drawOutcome, saveOutcome } from './outcomes.js?v=11';
-import { go, shown, sound } from './screen.js?v=8';
+import { go, shown, sound } from './screen.js?v=9';
 
 const stage = document.querySelector('.capsule-stage');
 const screen = stage.closest('.capsule-screen');
@@ -204,7 +204,6 @@ async function vend(start = 0, direction = 1, paid = false) {
   outlet.hidden = true;
   stage.dataset.reveal = '';
   setPhase('presenting');
-  if (motion.matches) sound.play('roll');
   vibrate(48);
 
   await animate(ball, [
@@ -215,7 +214,6 @@ async function vend(start = 0, direction = 1, paid = false) {
 
   setPhase('available');
   sound.setMood('reveal');
-  sound.play('ready');
   if (keyboard) action.focus({ preventScroll: true });
 }
 

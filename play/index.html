@@ -5,11 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Пусть повезёт</title>
   <link rel="icon" href="data:,">
-  <link rel="modulepreload" href="screen.js?v=8">
-  <link rel="modulepreload" href="sound.js?v=8">
-  <link rel="modulepreload" href="sound-map.js?v=4">
-  <link rel="stylesheet" href="../raffle-light-v14/styles.css?v=9">
-  <link rel="stylesheet" href="game.css?v=10">
+  <link rel="modulepreload" href="screen.js?v=9">
+  <link rel="modulepreload" href="sound.js?v=9">
+  <link rel="modulepreload" href="sound-map.js?v=5">
+  <link rel="stylesheet" href="../raffle-light-v14/styles.css?v=10">
+  <link rel="stylesheet" href="game.css?v=11">
   <link rel="modulepreload" href="outcomes.js?v=11">
   <script>
     if (new URLSearchParams(location.search).get('view') === 'prediction') {
@@ -25,7 +25,7 @@
       }
     }
   </script>
-  <script src="game.js?v=20" type="module" blocking="render"></script>
+  <script src="game.js?v=21" type="module" blocking="render"></script>
   <script src="../raffle-light-v14/press.js?v=3" defer></script>
 </head>
 <body class="game">
@@ -37,7 +37,7 @@
           <img class="machine-grabber" data-src="assets/machine-grabber.svg?v=5" alt="" width="515" height="447">
         </div>
         <div class="desktop-start-copy">
-          <img class="desktop-brand" src="assets/partners.svg" loading="lazy" alt="Авиасейлс × modi" width="257" height="35">
+          <a class="home-link desktop-brand" data-action="home" href="./" aria-label="На первый экран"><img src="assets/partners.svg" loading="lazy" alt="Авиасейлс × modi" width="257" height="35"></a>
           <div class="desktop-start-content">
             <img class="desktop-interface" data-src="assets/desktop-start-ui.svg?v=6" alt="" width="1366" height="900" fetchpriority="high">
             <h1 class="sr-only">Пусть повезёт</h1>
@@ -49,7 +49,7 @@
       </div>
       <div class="compact">
         <header class="compact-header">
-          <img src="assets/partners.svg" alt="Авиасейлс × modi" width="257" height="35">
+          <a class="home-link" data-action="home" href="./" aria-label="На первый экран"><img src="assets/partners.svg" alt="Авиасейлс × modi" width="257" height="35"></a>
         </header>
         <h1 class="compact-title"><img src="assets/title.svg" alt="Пусть повезёт" width="694" height="208"></h1>
         <p class="compact-intro">Запускай автомат из&nbsp;детства, получай предсказания и&nbsp;участвуй в&nbsp;розыгрыше путешествия от&nbsp;Авиасейлс и&nbsp;подарков от&nbsp;modi.</p>
@@ -66,11 +66,11 @@
     <section id="prediction" class="scene" aria-label="Предсказание" hidden>
       <div class="desktop">
         <div class="desktop-result-copy">
-          <img class="desktop-brand desktop-result-brand" src="assets/partners.svg" loading="lazy" alt="Авиасейлс × modi" width="257" height="35">
+          <a class="home-link desktop-brand desktop-result-brand" data-action="home" href="./" aria-label="На первый экран"><img src="assets/partners.svg" loading="lazy" alt="Авиасейлс × modi" width="257" height="35"></a>
           <div class="outcome-illustration desktop-reward">
             <img class="desktop-ring" alt="Кольцо с красным камнем в открытой капсуле" width="578" height="612" data-outcome-art>
           </div>
-          <img class="desktop-interface" data-src="assets/desktop-result-ui.svg?v=6" alt="" width="1440" height="900" fetchpriority="high">
+          <img class="desktop-interface" data-src="assets/desktop-result-ui.svg?v=7" alt="" width="1440" height="900" fetchpriority="high">
           <article class="desktop-outcome sr-only">
             <h1 data-outcome-title>Тебе сделают предложение.</h1>
             <p data-outcome-text>Заказать пиццу и никуда не идти.</p>
@@ -81,8 +81,7 @@
       </div>
       <div class="compact">
         <header class="compact-header">
-          <img src="assets/partners.svg" alt="Авиасейлс × modi" width="257" height="35">
-          <img class="compact-wordmark" src="../raffle-light-v14/assets/wordmark.svg" alt="Пусть повезёт" width="170" height="65">
+          <a class="home-link" data-action="home" href="./" aria-label="На первый экран"><img src="assets/partners.svg" alt="Авиасейлс × modi" width="257" height="35"></a>
         </header>
         <div class="outcome-illustration compact-reward">
           <img class="compact-ring" alt="Кольцо с красным камнем в открытой капсуле" width="578" height="612" data-outcome-art>
