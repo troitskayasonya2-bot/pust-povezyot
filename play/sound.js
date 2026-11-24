@@ -1,4 +1,4 @@
-import { clips, musicLoop, calmLoop } from './sound-map.js?v=6';
+import { clips, musicLoop, calmLoop } from './sound-map.js?v=7';
 
 // Sound never holds up the game: a late or missing file only means silence.
 const musicLevel = { calm: .5, machine: .3, suspense: .05, reveal: .36 };
@@ -22,7 +22,7 @@ export function createSound() {
 
   // A failed download is forgotten, so the next gesture tries again.
   function bytes(name) {
-    files[name] ??= fetch(new URL(`audio/${name}.mp3?v=10`, import.meta.url))
+    files[name] ??= fetch(new URL(`audio/${name}.mp3?v=11`, import.meta.url))
       .then(response => (response.ok ? response.arrayBuffer() : Promise.reject(new Error(response.status))))
       .catch(() => { delete files[name]; return null; });
     return files[name];

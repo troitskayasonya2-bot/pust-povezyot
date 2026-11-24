@@ -1,5 +1,5 @@
 import { getOutcome } from './outcomes.js?v=11';
-import { shown, sound } from './screen.js?v=11';
+import { shown, sound } from './screen.js?v=12';
 
 const params = new URLSearchParams(location.search);
 // Predictions that are plainly good news; the rest come with a catch.
@@ -99,7 +99,7 @@ for (const illustration of scene.querySelectorAll('[data-fallback]')) {
 function warmNextScreen() {
   if (navigator.connection?.saveData) return;
   for (const [href, as] of [
-    ['capsule.html', 'document'], ['capsule.css?v=10', 'style'], ['capsule.js?v=22', 'script'],
+    ['capsule.html', 'document'], ['capsule.css?v=10', 'style'], ['capsule.js?v=23', 'script'],
     ['assets/vending-machine.svg', 'fetch'], ['assets/vending-background.svg', 'image'], ['assets/vending-rays.svg', 'image'],
   ]) {
     const link = document.createElement('link');

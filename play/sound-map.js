@@ -27,6 +27,7 @@ export const clips = {
   'wow-2': ['crowd', 1.45, 1.35],
   'ooh-1': ['crowd', 2.9, 1.3],
   'ooh-2': ['crowd', 4.3, 1.35],
+  'crowd-drop': ['crowd', 5.75, 2.6],
 };
 
 export const musicLoop = {"loopStart": 0.3, "loopEnd": 37.3};

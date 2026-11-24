@@ -1,5 +1,5 @@
 import { drawOutcome, saveOutcome } from './outcomes.js?v=11';
-import { go, shown, sound } from './screen.js?v=11';
+import { go, shown, sound } from './screen.js?v=12';
 
 const stage = document.querySelector('.capsule-stage');
 const screen = stage.closest('.capsule-screen');
@@ -179,7 +179,10 @@ async function vend(start = 0, direction = 1, paid = false) {
   }
   if (capsuleSource.endsWith('retry')) outletBall.src = picture.src = capsuleSource;
   setPhase('dispensing');
-  if (motion.matches) sound.play('drop');
+  if (motion.matches) {
+    sound.play('drop');
+    sound.play('crowd-drop', { volume: .45 });   // the people around hold their breath
+  }
   outlet.hidden = false;
   const dropOptions = { duration: 1450, fill: 'forwards' };
   await Promise.all([
