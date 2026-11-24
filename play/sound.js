@@ -2,7 +2,7 @@ import { clips, musicLoop, calmLoop } from './sound-map.js?v=4';
 
 // Sound never holds up the game: a late or missing file only means silence.
 const musicLevel = { calm: .5, machine: .3, suspense: .05, reveal: .36 };
-// The mall hums through the game; the finished raffle gets its own quiet tune.
+// The mall hums around the machine; the other screens share one easy tune.
 const tracks = { mall: ['music', musicLoop, 1], calm: ['calm', calmLoop, .6] };
 const AudioEngine = window.AudioContext || window.webkitAudioContext;
 
@@ -16,13 +16,13 @@ export function createSound() {
   let musicBus;
   let effectsBus;
   const playing = {};
-  let scene = 'mall';
+  let scene = 'calm';
   let muted = false;
   let mood = 'calm';
 
   // A failed download is forgotten, so the next gesture tries again.
   function bytes(name) {
-    files[name] ??= fetch(new URL(`audio/${name}.mp3?v=6`, import.meta.url))
+    files[name] ??= fetch(new URL(`audio/${name}.mp3?v=7`, import.meta.url))
       .then(response => (response.ok ? response.arrayBuffer() : Promise.reject(new Error(response.status))))
       .catch(() => { delete files[name]; return null; });
     return files[name];
@@ -169,8 +169,8 @@ export function createSound() {
 
   function preload() {
     if (navigator.connection?.saveData) return;
-    // The finale's tune is fetched after the sounds the game needs first.
-    Promise.all([bytes('machine'), bytes(tracks[scene][0])]).then(() => bytes('calm'));
+    // The other screen's music is fetched after the sounds this one needs first.
+    Promise.all([bytes('machine'), bytes(tracks[scene][0])]).then(() => Object.values(tracks).forEach(([file]) => bytes(file)));
   }
 
   // The toy is known seven seconds before it is seen.

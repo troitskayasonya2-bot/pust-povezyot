@@ -1,4 +1,4 @@
-import { createSound } from './sound.js?v=7';
+import { createSound } from './sound.js?v=8';
 
 // Inside index.html the sound and the transitions belong to the shell.
 // A page opened by its own link works alone, with its own sound.
@@ -101,11 +101,11 @@ document.addEventListener('click', event => {
   sound.play(toMachine ? 'coin' : 'tap');
 }, { capture: true });
 
-// «Розыгрыш закончен» plays the quiet tune; the open raffle and the game keep the mall.
-const finale = !!document.querySelector('#raffle-title') && new URLSearchParams(location.search).get('state') !== 'open';
+// The machine stands in a noisy mall; the start, the prediction and the raffle share one easy tune.
+const atMachine = !!document.querySelector('.capsule-stage');
 shown.then(() => {
-  sound.setScene(finale ? 'calm' : 'mall');
-  sound.setMood(document.querySelector('.capsule-stage') ? 'machine' : 'calm');
+  sound.setScene(atMachine ? 'mall' : 'calm');
+  sound.setMood(atMachine ? 'machine' : 'calm');
 });
 if (document.readyState === 'complete') sound.preload();
 else addEventListener('load', () => setTimeout(() => sound.preload(), 50), { once: true });

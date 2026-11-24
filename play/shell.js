@@ -1,4 +1,4 @@
-import { createSound } from './sound.js?v=7';
+import { createSound } from './sound.js?v=8';
 
 // One document for the whole game: the sound survives every transition,
 // and the next screen appears only when it is ready.

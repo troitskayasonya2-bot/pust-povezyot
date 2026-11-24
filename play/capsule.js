@@ -1,5 +1,5 @@
 import { drawOutcome, saveOutcome } from './outcomes.js?v=11';
-import { go, shown, sound } from './screen.js?v=7';
+import { go, shown, sound } from './screen.js?v=8';
 
 const stage = document.querySelector('.capsule-stage');
 const screen = stage.closest('.capsule-screen');
@@ -132,10 +132,11 @@ function shakeStock(element, index) {
   }), { duration: shakeDuration });
 }
 
-async function vend(start = 0, direction = 1) {
+// Starting the machine sounds like a coin; a replay already paid with the link that brought it here.
+async function vend(start = 0, direction = 1, paid = false) {
   if (stage.dataset.phase !== 'ready') return;
   gesture = null;
-  sound.play('tap');
+  if (!paid) sound.play('coin');
   const keyboard = dial.matches(':focus-visible') || trigger.matches(':focus-visible');
   pendingDraw = drawOutcome(query.get('after'));
   const { outcome } = pendingDraw;
@@ -273,6 +274,7 @@ form.addEventListener('submit', async event => {
   }
   event.preventDefault();
   sound.play('open');
+  sound.setScene('calm');
   const destination = new URL(form.action);
   destination.search = new URLSearchParams(new FormData(form));
   if (!motion.matches) {
@@ -340,7 +342,7 @@ loadMachine()
       const url = new URL(location.href);
       url.searchParams.delete('spin');
       history.replaceState(history.state, '', url);
-      shown.then(() => vend());
+      shown.then(() => vend(0, 1, true));
     }
   })
   .catch(() => setPhase('error'))
