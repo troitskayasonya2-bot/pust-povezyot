@@ -22,7 +22,7 @@ export function createSound() {
 
   // A failed download is forgotten, so the next gesture tries again.
   function bytes(name) {
-    files[name] ??= fetch(new URL(`audio/${name}.mp3?v=8`, import.meta.url))
+    files[name] ??= fetch(new URL(`audio/${name}.mp3?v=9`, import.meta.url))
       .then(response => (response.ok ? response.arrayBuffer() : Promise.reject(new Error(response.status))))
       .catch(() => { delete files[name]; return null; });
     return files[name];
