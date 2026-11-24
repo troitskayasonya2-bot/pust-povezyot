@@ -1,4 +1,4 @@
-import { createSound } from './sound.js?v=3';
+import { createSound } from './sound.js?v=7';
 
 // Inside index.html the sound and the transitions belong to the shell.
 // A page opened by its own link works alone, with its own sound.
@@ -21,7 +21,7 @@ function relay() {
   const later = (method, args) => shellReady.then(found => found.sound[method](...args));
   const call = method => (...args) => (shell ? shell.sound[method](...args) : later(method, args));
   return {
-    unlock: call('unlock'), play: call('play'), settle: call('settle'), setMood: call('setMood'),
+    unlock: call('unlock'), play: call('play'), settle: call('settle'), setMood: call('setMood'), setScene: call('setScene'),
     setMuted: call('setMuted'), preload: call('preload'), prepare: call('prepare'),
     get muted() { return shell ? shell.sound.muted : false; },
     get state() { return shell?.sound.state; },
@@ -101,6 +101,11 @@ document.addEventListener('click', event => {
   sound.play(toMachine ? 'coin' : 'tap');
 }, { capture: true });
 
-shown.then(() => sound.setMood(document.querySelector('.capsule-stage') ? 'machine' : 'calm'));
+// «Розыгрыш закончен» plays the quiet tune; the open raffle and the game keep the mall.
+const finale = !!document.querySelector('#raffle-title') && new URLSearchParams(location.search).get('state') !== 'open';
+shown.then(() => {
+  sound.setScene(finale ? 'calm' : 'mall');
+  sound.setMood(document.querySelector('.capsule-stage') ? 'machine' : 'calm');
+});
 if (document.readyState === 'complete') sound.preload();
 else addEventListener('load', () => setTimeout(() => sound.preload(), 50), { once: true });

@@ -1,7 +1,9 @@
-import { clips, musicLoop } from './sound-map.js?v=2';
+import { clips, musicLoop, calmLoop } from './sound-map.js?v=4';
 
 // Sound never holds up the game: a late or missing file only means silence.
 const musicLevel = { calm: .5, machine: .3, suspense: .05, reveal: .36 };
+// The mall hums through the game; the finished raffle gets its own quiet tune.
+const tracks = { mall: ['music', musicLoop, 1], calm: ['calm', calmLoop, .6] };
 const AudioEngine = window.AudioContext || window.webkitAudioContext;
 
 export function createSound() {
@@ -13,13 +15,14 @@ export function createSound() {
   let master;
   let musicBus;
   let effectsBus;
-  let music;
+  const playing = {};
+  let scene = 'mall';
   let muted = false;
   let mood = 'calm';
 
   // A failed download is forgotten, so the next gesture tries again.
   function bytes(name) {
-    files[name] ??= fetch(new URL(`audio/${name}.mp3?v=2`, import.meta.url))
+    files[name] ??= fetch(new URL(`audio/${name}.mp3?v=6`, import.meta.url))
       .then(response => (response.ok ? response.arrayBuffer() : Promise.reject(new Error(response.status))))
       .catch(() => { delete files[name]; return null; });
     return files[name];
@@ -40,13 +43,32 @@ export function createSound() {
   }
 
   function startMusic() {
-    if (music || muted || !buffers.music) return;
-    music = context.createBufferSource();
-    music.buffer = buffers.music;
-    music.loop = true;
-    Object.assign(music, musicLoop);
-    music.connect(musicBus);
-    music.start(0, musicLoop.loopStart);
+    const [file, loop, level] = tracks[scene];
+    if (playing[scene] || muted || !context || !buffers[file]) return;
+    const source = context.createBufferSource();
+    const gain = context.createGain();
+    source.buffer = buffers[file];
+    source.loop = true;
+    Object.assign(source, loop);
+    gain.gain.value = 0;
+    gain.gain.setTargetAtTime(level, context.currentTime, .3);
+    source.connect(gain);
+    gain.connect(musicBus);
+    source.start(0, loop.loopStart);
+    playing[scene] = { source, gain };
+  }
+
+  function setScene(next) {
+    if (!tracks[next] || next === scene) return;
+    scene = next;
+    if (!context) return;
+    for (const [name, { source, gain }] of Object.entries(playing)) {
+      if (name === scene) continue;
+      gain.gain.setTargetAtTime(0, context.currentTime, .4);
+      try { source.stop(context.currentTime + 2); } catch { /* already over */ }
+      delete playing[name];
+    }
+    decode(tracks[scene][0]).then(startMusic);
   }
 
   function unlock() {
@@ -75,7 +97,7 @@ export function createSound() {
         blank.start();
       }
       decode('machine');
-      decode('music').then(startMusic);
+      decode(tracks[scene][0]).then(startMusic);
     } catch {
       // No audio device: the game continues silently.
     }
@@ -147,8 +169,8 @@ export function createSound() {
 
   function preload() {
     if (navigator.connection?.saveData) return;
-    bytes('machine');
-    bytes('music');
+    // The finale's tune is fetched after the sounds the game needs first.
+    Promise.all([bytes('machine'), bytes(tracks[scene][0])]).then(() => bytes('calm'));
   }
 
   // The toy is known seven seconds before it is seen.
@@ -160,9 +182,9 @@ export function createSound() {
   }
 
   return {
-    unlock, play, settle, setMood, setMuted, preload, prepare,
+    unlock, play, settle, setMood, setScene, setMuted, preload, prepare,
     get muted() { return muted; },
-    get state() { return { context: context?.state ?? 'none', effects: !!buffers.machine, music: !!music, mood, muted }; },
+    get state() { return { context: context?.state ?? 'none', effects: !!buffers.machine, music: !!playing[scene], scene, mood, muted }; },
     subscribe(listener) { listeners.add(listener); return () => listeners.delete(listener); },
   };
 }

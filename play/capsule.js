@@ -1,5 +1,5 @@
 import { drawOutcome, saveOutcome } from './outcomes.js?v=11';
-import { go, shown, sound } from './screen.js?v=3';
+import { go, shown, sound } from './screen.js?v=7';
 
 const stage = document.querySelector('.capsule-stage');
 const screen = stage.closest('.capsule-screen');
